@@ -1,0 +1,621 @@
+{
+	"info": {
+		"_postman_id": "4377a0a2-3050-426f-a003-1bc92967f9a4",
+		"name": "Cartle",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Merchant's profile",
+			"item": [
+				{
+					"name": "Merchant's profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/merchant/profile",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"merchant",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Merchant's Profile",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "sam",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/merchant/update-profile",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"merchant",
+								"update-profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Merchant's password when logged in already",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "currentPassword",
+									"value": "Infinixhot8@",
+									"type": "default"
+								},
+								{
+									"key": "newPassword",
+									"value": "IphoneXR@",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/merchant/update-password",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"merchant",
+								"update-password"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Customer Auth",
+			"item": [
+				{
+					"name": "Verify Email using Token(link)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/user/auth/verify/:token",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"user",
+								"auth",
+								"verify",
+								":token"
+							],
+							"variable": [
+								{
+									"key": "token",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register A User to a Store",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "dan@gmail.com",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "Infinixhot8@",
+									"type": "default"
+								},
+								{
+									"key": "storeId",
+									"value": "4",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/user/auth/register",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"user",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Request Reset Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "chukwumasamuel371@gmail.com",
+									"type": "default"
+								},
+								{
+									"key": "storeId",
+									"value": "1",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/user/auth/reset-password",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"user",
+								"auth",
+								"reset-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "password",
+									"value": "Infinixhot8",
+									"type": "default"
+								},
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY5NDQ1ODEzMiwiZXhwIjoxNjk0NDYxNzMyfQ.vswgVKqyc5DV4JfJkDAlbYwmfesI5XcurC0y536LTcs",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/user/auth/reset-password",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"user",
+								"auth",
+								"reset-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login A User to A Store",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "Chukwumasamuel371@gmail.com",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "Infinixhot8",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/user/auth/login",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"user",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cartle Org",
+			"item": [
+				{
+					"name": "Create a Subscription Plan",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch All Plans",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Merchant Subscription",
+			"item": [
+				{
+					"name": "subscribe",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "planId",
+									"value": "56363",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/merchant/subscribe",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"merchant",
+								"subscribe"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Register a Merchant",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "chukwumasamuel371@gmail.com",
+							"type": "default"
+						},
+						{
+							"key": "password",
+							"value": "Infinixhot8@",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:5000/merchant/auth/register",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"merchant",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Verify Email of Merchant",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/api/me",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login A merchant Using Credentials",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "officialsam371@gmail.com",
+							"type": "default"
+						},
+						{
+							"key": "password",
+							"value": "Infinixhot8",
+							"type": "default"
+						},
+						{
+							"key": "newName",
+							"value": "sam",
+							"type": "default",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:5000/auth/login",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get a List of Stores",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/merchant/stores",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"merchant",
+						"stores"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get a particular Store with all details",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/api/mes",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"mes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a Store",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a Store",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/api/me",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit Store Name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/api/me",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit Store Details",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/api/me",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a Product Associated to a store",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/api/me",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit a Product Associated to a Store",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/api/me",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Verify Email of a User",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/api/me",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login a User to a particular Store",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "dan@gmail.com",
+							"type": "default"
+						},
+						{
+							"key": "password",
+							"value": "Infinixhot8@",
+							"type": "default"
+						},
+						{
+							"key": "storeId",
+							"value": "3",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:5000/user/login",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,99 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap");
+
+@font-face {
+  font-family: "avenir";
+  src: url("/font/Avenir/Avenir_Regular/Avenir\ Regular.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "avenir";
+  src: url("/font/Avenir/Avenir_Heavy/Avenir\ Heavy.ttf");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "avenir";
+  src: url("/font/Avenir/Avenir_Light/Avenir\ Light.ttf");
+  font-weight: lighter;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "baskerville";
+  src: url("/font/baskerville/Baskerville-Old-Face_6117.ttf");
+}
+
+@layer base {
+  th,
+  td {
+    @apply py-3 px-2.5 text-sm text-left;
+  }
+  thead {
+    @apply border-b border-gray-400;
+  }
+  th {
+    @apply font-semibold;
+  }
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 0px;
+}
+::-webkit-scrollbar-track {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.apexchartsbasic-bar {
+  z-index: 0 !important;
+}
+
+.apexcharts-canvas svg {
+  z-index: 0 !important;
+}
+
+.apexcharts-svg {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Add store pop over */
+.parent {
+  position: relative;
+}
+.hidden-element {
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  position: absolute;
+  transition: opacity 0.3s ease, height 0.3s ease, visibility 0.3s ease;
+}
+.parent:hover .hidden-element {
+  opacity: 1;
+  height: auto;
+  visibility: visible;
+}
