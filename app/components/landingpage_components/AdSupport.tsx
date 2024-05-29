@@ -16,7 +16,7 @@ const AdSupport = () => {
               </p>
               
               <div className="mt-4 inline-flex w-full bg-white py-2 px-6 rounded-lg shadow-lg mt-6 sm:w-auto">
-                        <a href="https://merchant-nestsite.vercel.app/auth/signup" className="inline-flex items-center justify-center w-full py-2 px-4 text-[#FF7600] font-medium duration-150 hover:bg-gray-700 active:bg-gray-900 rounded-lg hover:shadow-none bg-tertiary">
+                        <a href="/auth/register" className="inline-flex items-center justify-center w-full py-2 px-4 text-[#FF7600] font-medium duration-150 hover:bg-gray-700 active:bg-gray-900 rounded-lg hover:shadow-none bg-tertiary">
                             Get started for free
                         </a>
                     </div>

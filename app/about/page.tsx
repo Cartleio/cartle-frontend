@@ -1,9 +1,40 @@
-import React from 'react'
+"use client";
+import React, { useEffect, useState } from "react";
+import Footer from "../components/landingpage_components/Footer";
+import PageLoading from "../merchant/MerchantLoader";
+import Header from "../components/landingpage_components/Header";
+import AdSupport from "../components/landingpage_components/AdSupport";
+import About from "../components/landingpage_components/About";
+function Page() {
+  const [loading, setLoading] = useState(true);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-const page = () => {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000); 
+
+    return () => clearTimeout(timer); 
+  }, []);
+
   return (
-    <div>page</div>
-  )
+    <div className="bg-white w-full font-inter mx-auto">
+      {loading ? (
+        <div className="min-h-[80vh]">
+          <PageLoading />
+        </div>
+      ) : (
+        <div className="bg-[#FFFFFF]">
+          <Header mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />
+          <div className="pt-10">
+            <About />
+          </div>
+          <AdSupport />
+          <Footer />
+        </div>
+      )}
+    </div>
+  );
 }
 
-export default page
+export default Page;

@@ -56,7 +56,7 @@ const Footer = () => {
 
       <div className="mx-auto">
 
-        <div className="flex items-center gap-4 my-8 justify-center">
+        <div className="flex items-center gap-4 flex-col sm:flex-row  my-8 justify-center">
         <div className="bg-white p-8 rounded-md lg:mr-8 shadow-sm">
             <div className="flex items-center mb-4">
             <svg width="24" height="24" viewBox="0 0 24 24" className='mr-4' fill="none" xmlns="http://www.w3.org/2000/svg">
