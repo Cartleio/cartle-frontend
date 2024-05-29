@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { FaCheck, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import styles from "../../../styles/Home.module.css";
-import Footer from "@/app/components/home_components/Footer";
+import Footer from "@/app/components/landingpage_components/Footer";
 import { signIn } from "next-auth/react";
 import { FcGoogle } from "react-icons/fc";
 import { useRouter } from "next/navigation";
@@ -57,7 +57,9 @@ const Login = () => {
       );
       if (response.status === 200) {
         setLoading(false);
+       
         const merchantData = response?.data;
+        console.log(merchantData)
         dispatch(login({ ...merchantData }));
       }
     } catch (error) {
