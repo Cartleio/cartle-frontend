@@ -101,7 +101,7 @@ const Header = ({ mobileMenuOpen, setMobileMenuOpen }: HeaderProps) => {
                 
                 </div>
               <Link
-                href="/auth/register"
+                href="/auth/signup"
                 className="text-white text-lg font-semibold whitespace-nowrap leading-6 bg-[#FF7600] px-8 py-3 rounded-md mr-4"
               >
                 Get started
@@ -142,7 +142,7 @@ const Header = ({ mobileMenuOpen, setMobileMenuOpen }: HeaderProps) => {
                   <div className="py-6 flex justify-between items-center">
                     <div className="lg:flex">
                     <Link
-                      href="/auth/register"
+                      href="/auth/signup"
                       className="text-white text-lg font-semibold leading-6  whitespace-nowrap bg-[#FF7600] px-5 py-2.5 rounded-md mr-4"
                     >
                         Get started

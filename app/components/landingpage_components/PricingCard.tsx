@@ -134,7 +134,7 @@ const PricingCard: React.FC = () => {
                   }`}
                   disabled={selectedPlan === index}
                 >
-                  {selectedPlan === index ? 'Selected' : 'Get Started'}
+                  <a href="/auth/signup">{selectedPlan === index ? 'Selected' : 'Get Started'}</a>
                 </button>
               </div>
             ))}
