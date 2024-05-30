@@ -30,11 +30,12 @@ const CreateStore = () => {
       setErrorMsg("Please enter a store name");
       return;
     }
+    const name = storeName
     try {
       const response = await axios.post(
         "https://cartle-backend-800v.onrender.com/stores/",
         {
-          storeName,
+         name,
         },
         {
           headers: {
@@ -42,6 +43,7 @@ const CreateStore = () => {
           },
         }
       );
+      console.log(response)
 
       if ((response.status === 201) || (response.status === 200)) {
         setLoading(false);
