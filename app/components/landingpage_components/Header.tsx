@@ -132,7 +132,7 @@ const Header = ({ mobileMenuOpen, setMobileMenuOpen }: HeaderProps) => {
                       <Link
                         key={item.name}
                         href={item.href}
-                        className="-mx-3 block  rounded-lg whitespace-nowrap  px-3 py-2 text-base font-medium leading-7 text-gray-700 hover:text-white hover:bg-orange-800"
+                        className="-mx-3 block  rounded-lg whitespace-nowrap  px-3 py-2 text-base font-medium leading-7 text-gray-700 hover:text-white hover:bg-orange-500"
                       >
                         {item.name}
                       </Link>             
