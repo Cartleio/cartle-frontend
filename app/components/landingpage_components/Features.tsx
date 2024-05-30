@@ -59,7 +59,7 @@ export const Features = () => {
 
                   <p className='text-gray-800 mb-6 md:text-lg'>
                   Manage everything in one place
-Automate everything. Track your sales, orders, products, abandoned cart and Inventory. Recieve payments, send receipts and ship products, all from your device.
+Automate everything. Track your sales, orders, products, abandoned cart and Inventory. Receive payments, send receipts and ship products, all from your device.
                 </p>
                 </div>
                 <div className="order-2 md:order-1 sm:order-2 mt-4 md:mt-0">
@@ -143,7 +143,7 @@ Automate everything. Track your sales, orders, products, abandoned cart and Inve
           <div className="flex flex-col-reverse md:flex-row items-center py-4 px-4 mx-auto max-w-screen-xl xl:gap-1 md:grid md:grid-cols-2  lg:px-20">
             <div className="order-1 md:order-2 sm:order-1 lg:ml-20 p-4 lg:p-10 rounded-xl mt-4 border border-[#FF7600]"style={{ boxShadow: "0px 4px 6px rgba(255, 107, 58, 0.3), 0px 1px 3px rgba(255, 107, 58, 0.3), 0px 0px 6px rgba(255, 107, 58, 0.3), 0px 0px 3px rgba(255, 107, 58, 0.3)" }}>
               <h2 className="mb-4 text-2xl lg:text-4xl tracking-tight font-extrabold text-black">Custom App Integration</h2>
-              <p className="mb-6 font-light text-gray-500 md:text-lg">Do you want to integrate more tools to your cartle website? We&apos;ve got you covered. You can integrate several apps to your store. Guess what! You can send us a request if you to integrate any app not already in our platform and we will get it done for you.</p>
+              <p className="mb-6 font-light text-gray-500 md:text-lg">Do you want to integrate more tools to your cartle website? We&apos;ve got you covered. You can integrate several apps to your store. Guess what! You can send us a request if you want to integrate any app not already in our platform and we will get it done for you.</p>
             </div>
             <div className="order-2 md:order-1 sm:order-2 mt-4 md:mt-0">
               <Image

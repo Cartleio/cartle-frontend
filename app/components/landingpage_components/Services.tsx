@@ -82,7 +82,7 @@ const Services = (): JSX.Element => {
 
             ),
             header: "Advertise your store",
-            cardBody: "Explore our list of templatePost your business link on all social platforms. Boost your sales by telling people about it.s and design a website for your business of your dreams.",
+            cardBody: "Explore our list of templates, post your business link on all social platforms. Boost your sales by telling people about it and design a website for your business of your dreams.",
             buttonText: "Join Waitlist",
         },
         {   

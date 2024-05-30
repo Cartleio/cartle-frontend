@@ -212,11 +212,12 @@ const Login = () => {
                 onClick={() => signIn("google")}
               >
                 <FcGoogle className="text-xl" />
-                <span>Continue with Google</span>
+                <a href="https://cartle-backend-800v.onrender.com/merchants/google">   <span>Continue with Google</span></a>
+             
               </div>
 
               <p className="mt-3 text-sm lg:text-base">
-                Don&apos;t have an accout yet?
+                Don&apos;t have an account yet?
                 <Link className="text-primary-500" href={"../auth/signup"}>
                   {" "}
                   Get started for free with Cartle
