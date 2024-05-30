@@ -9,7 +9,7 @@ function Theme({ layoutType }: { layoutType: number }) {
       </div>
       <div className="p-4">
         <figcaption className="text-[#444748] text-lg">
-          Layout {layoutType}
+          {/* Smarthub {layoutType} */}Smarthub
         </figcaption>
         <figure className="text-[#979DA0]  text-sm md:text-base">
           A simple and easy to understand layout for your store

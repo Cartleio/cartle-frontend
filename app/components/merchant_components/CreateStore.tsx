@@ -8,8 +8,10 @@ import {
 } from "@/app/redux/feature/storeCreationSlice";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import { toast } from "react-toastify";
 import { activeStore, addStore } from "@/app/redux/feature/storeSlice";
+import "react-toastify/dist/ReactToastify.css";
+import { toast,ToastContainer } from "react-toastify";
+
 
 const CreateStore = () => {
   const [storeName, setStoreName] = useState<string>("");
@@ -30,19 +32,18 @@ const CreateStore = () => {
     }
     try {
       const response = await axios.post(
-        "https://cartle-backend-800v.onrender.com/merchant/create-store",
+        "https://cartle-backend-800v.onrender.com/stores/",
         {
           storeName,
         },
         {
           headers: {
-            withCredentials: true,
             Authorization: `Bearer ${token}`,
           },
         }
       );
 
-      if (response.status === 201) {
+      if ((response.status === 201) || (response.status === 200)) {
         setLoading(false);
         dispatch(IsCreateStoreActive());
         toast.success("Store created successfully");
@@ -52,12 +53,14 @@ const CreateStore = () => {
       }
     } catch (error) {
       setLoading(false);
+      toast.error("store creation failed");
       if (
         (error as any).response.status === 400 ||
         (error as any).response.status === 404
       ) {
         dispatch(creationFailure("store creation failed"));
         setLoading(false);
+        toast.error("store creation failed");
         toast.error((error as any).response?.data?.error);
       }
     }
@@ -65,6 +68,7 @@ const CreateStore = () => {
 
   return (
     <main className="w-screen h-screen fixed top-0 left-0 bg-[rgba(0,0,0,0.6)] z-[9999999999]">
+      <ToastContainer/>
       <section className="h-full w-full flex items-center justify-center">
         <div
           className={`p-7 bg-white shadow-none sm:shadow-2xl rounded-3xl mx-auto w-[70%]  md:w-[60%] lg:w-[40%] xl:w-[30%]   transition-transform duration-700 ease-in-out  flex flex-col gap-6`}

@@ -158,7 +158,7 @@ function Home() {
             Amazing themes for your store to choose from
           </p>
           <div className="grid grid-col-1 md:grid-cols-2 xl:grid-cols-3 gap-6 my-6">
-            {[1, 2, 3, 4, 5, 6].map((theme) => (
+            {[1,].map((theme) => (
               <Theme key={theme} layoutType={theme} />
             ))}
           </div>
