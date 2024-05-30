@@ -58,7 +58,6 @@ function Register() {
       setLoading(false);
       if ((error as any)?.response?.status === 400) {
         setError((error as any)?.response?.data?.error);
-        toast.error('incoorect credentials');
       }
     }
   };

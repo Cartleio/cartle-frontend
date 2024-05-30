@@ -69,7 +69,7 @@ const Login = () => {
       setLoading(false);
       if (((error as any).response.status === 401) || (error as any).response.status === 400) {
         setErrorMgs((error as any).response.data.message);
-        toast.error('incoorect credentials');
+        toast.error('incorrect credentials');
       }
     } finally {
       setLoading(false);
