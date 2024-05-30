@@ -51,9 +51,9 @@ const Login = () => {
       const response = await axios.post(
         `https://cartle-backend-800v.onrender.com/merchants/login`,
         merchant,
-        {
-          withCredentials: true,
-        }
+        // {
+        //   withCredentials: true,
+        // }
       );
       if (response.status === 200) {
         setLoading(false);
