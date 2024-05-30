@@ -61,6 +61,7 @@ const Login = () => {
         setLoading(false);
        
         const merchantData = response?.data;
+        toast.success('logged in successfully');
         
         console.log(merchantData)
         dispatch(login({ ...merchantData }));
