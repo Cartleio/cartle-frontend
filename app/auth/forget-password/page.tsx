@@ -7,7 +7,7 @@ import { useState } from "react";
 import Image from "next/image";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
-import { toast } from "react-toastify";
+import { toast,ToastContainer } from "react-toastify";
 
 const ForgetPassword = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -49,6 +49,7 @@ const ForgetPassword = () => {
 
   return (
     <>
+      <ToastContainer/>
       <section
         className={`bg-white sm:bg-orange-500 relative py-8 min-h-screen overflow-x-hidden ${styles.avenirFont} text-[#444748] md:flex-col items-center justify-center`}
       >

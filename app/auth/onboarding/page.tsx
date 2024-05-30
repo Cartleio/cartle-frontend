@@ -3,7 +3,8 @@ import LoadingSpinner from "@/app/components/LoadingSpinner";
 import axios from "axios";
 import Image from "next/image";
 import React, { useState } from "react";
-import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { toast,ToastContainer } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { login } from "@/app/redux/feature/auth-slice";
@@ -28,9 +29,9 @@ const Onboarding = () => {
       const response = await axios.put(
         "https://cartle-backend-800v.onrender.com/merchant/profile",
         merchant,
-        {
-          withCredentials: true,
-        }
+        // {
+        //   withCredentials: true,
+        // }
       );
       if (response.status === 200) {
         setLoading(false);
@@ -46,6 +47,7 @@ const Onboarding = () => {
 
   return (
     <>
+      <ToastContainer/>
       <section
         className={`bg-white sm:bg-orange-500 relative py-8 min-h-screen overflow-x-hidden text-[#444748] md:flex-col items-center justify-center`}
       >

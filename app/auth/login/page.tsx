@@ -13,6 +13,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { login } from "@/app/redux/feature/auth-slice";
 import "react-toastify/dist/ReactToastify.css";
 import { activeStore, clearStore } from "@/app/redux/feature/storeSlice";
+import "react-toastify/dist/ReactToastify.css";
+import { toast,ToastContainer } from "react-toastify";
 
 interface Merchant {
   email: string;
@@ -55,17 +57,19 @@ const Login = () => {
         //   withCredentials: true,
         // }
       );
-      if (response.status === 200) {
+      if ((response.status === 200) || (response.status === 201)) {
         setLoading(false);
        
         const merchantData = response?.data;
+        
         console.log(merchantData)
         dispatch(login({ ...merchantData }));
       }
     } catch (error) {
       setLoading(false);
-      if ((error as any).response.status === 401) {
+      if (((error as any).response.status === 401) || (error as any).response.status === 400) {
         setErrorMgs((error as any).response.data.message);
+        toast.error('incoorect credentials');
       }
     } finally {
       setLoading(false);
@@ -91,6 +95,7 @@ const Login = () => {
 
   return (
     <>
+    <ToastContainer/>
       <div
         className={`grid grid-cols-1 md:grid-cols-2  overflow-hidden font-inter`}
       >

@@ -9,7 +9,7 @@ import LoadingSpinner from "@/app/components/LoadingSpinner";
 import axios, { AxiosError } from "axios";
 import Image from "next/image";
 import "react-toastify/dist/ReactToastify.css";
-import { toast } from "react-toastify";
+import { toast,ToastContainer } from "react-toastify";
 import { useSelector } from "react-redux";
 
 interface User {
@@ -58,12 +58,14 @@ function Register() {
       setLoading(false);
       if ((error as any)?.response?.status === 400) {
         setError((error as any)?.response?.data?.error);
+        toast.error('incoorect credentials');
       }
     }
   };
 
   return (
     <>
+      <ToastContainer/>
       <section
         className={`bg-white sm:bg-orange-500 relative py-8 min-h-screen overflow-x-hidden ${styles.avenirFont} text-[#444748]`}
       >

@@ -7,6 +7,9 @@ import styles from "../../../styles/Home.module.css";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { useSearchParams } from "next/navigation";
 import axios from "axios";
+import "react-toastify/dist/ReactToastify.css";
+import { toast,ToastContainer } from "react-toastify";
+
 
 const ResetPassword = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -46,6 +49,7 @@ const ResetPassword = () => {
       if (response?.status === 200 || response?.status === 201) {
         setIsError(false);
         setIsSuccess(true);
+        toast.success('Password updated successfully')
         setLoading(false);
         setMessage(response?.data?.message);
       }
@@ -54,6 +58,7 @@ const ResetPassword = () => {
         setLoading(false);
         setIsSuccess(false);
         setIsError(true);
+        toast.error('Failed to update password')
       }
     } catch (error) {
       setLoading(false);
@@ -64,6 +69,7 @@ const ResetPassword = () => {
 
   return (
     <>
+      <ToastContainer/>
       <section
         className={`bg-white sm:bg-orange-500 relative py-8 min-h-screen overflow-x-hidden ${styles.avenirFont} text-[#444748] md:flex-col items-center justify-center`}
       >
