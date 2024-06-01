@@ -68,7 +68,7 @@ const PricingTable: React.FC = () => {
                     enterprise: checkIcon
                 },
                 {
-                    name: "Custom Domain",
+                    name: "Custom Domain",  
                     basic: checkIcon,
                     business: checkIcon,
                     enterprise: checkIcon

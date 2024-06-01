@@ -70,7 +70,7 @@ function AddProduct(): JSX.Element {
     description: "",
     tax: false,
     price: undefined,
-    physicalProduct: true,
+    // physicalProduct: true,
     trackQuantity: false,
     compareAtPrice: 2444.0,
     costPerItem: undefined,
@@ -175,7 +175,7 @@ function AddProduct(): JSX.Element {
       const token = user.token;
       setLoading(true);
       const response = await axios.post(
-        `https://cartle-backend-800v.onrender.com/merchant/store/${activeStoreId}/product`,
+        `https://cartle-backend-800v.onrender.com/stores/${activeStoreId}/product`,
         productData,
         {
           headers: {
