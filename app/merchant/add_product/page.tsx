@@ -70,7 +70,7 @@ function AddProduct(): JSX.Element {
     description: "",
     tax: false,
     price: undefined,
-    // physicalProduct: true,
+    physicalProduct: true,
     trackQuantity: false,
     compareAtPrice: 2444.0,
     costPerItem: undefined,
