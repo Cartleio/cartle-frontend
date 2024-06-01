@@ -11,7 +11,7 @@ export const getVouchers = createAsyncThunk(
       const { token } = currentState?.auth.user;
       const { activeStoreId } = currentState?.merchantData;
 
-      const url = `https://cartle-backend-800v.onrender.com/merchant/voucher-discounts/${activeStoreId}`;
+      const url = `https://cartle-backend-800v.onrender.com/stores/${activeStoreId}/vouchers`;
       const resp = await axios.get(url, {
         headers: {
           withCredentials: true,

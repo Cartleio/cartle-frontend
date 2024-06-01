@@ -37,7 +37,7 @@ const SingleProduct = ({ params: { product_id } }: Params) => {
   const { user } = useSelector((state: any) => state.auth);
 
   //API URL
-  const url = `https://cartle-backend-800v.onrender.com/merchant/store/${activeStoreId}/product/${product_id}`;
+  const url = `https://cartle-backend-800v.onrender.com/stores/${activeStoreId}/products/${product_id}`;
 
   //REQUESTS FOR PRODUCT INFORMATION
   const getProductInfo = async () => {
