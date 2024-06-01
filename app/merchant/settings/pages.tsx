@@ -49,7 +49,7 @@ const Settings: React.FC = () => {
     const fetchProfile = async () => {
       const token = user.token;
       try {
-        const response = await axios.get('https://cartle-backend-800v.onrender.com/merchants/',
+        const response = await axios.get('https://cartle-backend-800v.onrender.com/merchant/profile',
         {
           headers: {
             withCredentials: true,
