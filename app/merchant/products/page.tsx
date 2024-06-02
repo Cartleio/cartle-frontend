@@ -21,7 +21,6 @@ type HeaderData = {
   text: string;
 };
 function Products() {
-  
   const HeaderData: HeaderData = {
     title: "Products",
     text: "Items that are in your store",
@@ -53,20 +52,6 @@ function Products() {
 
   //GET PRODUCTS FROM REDUX STORE
   const { products } = useSelector((store: any) => store.storeProduct);
-
-  //UPLOADING A STORE WINDOW
-  const handleStoreWindowUploadToCloudinary = () => {};
-
-  const [videoSrc, setVideoSrc] = useState<any>("");
-
-  const upload = (e: any) => {
-    const file = e.target.files[0];
-    const fileReader = new FileReader();
-    fileReader.readAsDataURL(file);
-    fileReader.onload = () => {
-      setVideoSrc(fileReader.result);
-    };
-  };
 
   return (
     <Layout>

@@ -14,7 +14,7 @@ import { login } from "@/app/redux/feature/auth-slice";
 import "react-toastify/dist/ReactToastify.css";
 import { activeStore, clearStore } from "@/app/redux/feature/storeSlice";
 import "react-toastify/dist/ReactToastify.css";
-import { toast,ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
 interface Merchant {
   email: string;
@@ -51,29 +51,31 @@ const Login = () => {
     try {
       setLoading(true);
       const response = await axios.post(
-        `https://cartle-backend-800v.onrender.com/merchants/login`,
-        merchant,
-        // {
-        //   withCredentials: true,
-        // }
+        `https://cartle-test.onrender.com/merchants/login`,
+        merchant
       );
-      if ((response.status === 200) || (response.status === 201)) {
+      if (response.status === 200 || response.status === 201) {
         setLoading(false);
-       
+
         const merchantData = response?.data;
-        toast.success('logged in successfully');
-        
-        console.log(merchantData)
+        toast.success("logged in successfully");
+
+        console.log(merchantData);
         dispatch(login({ ...merchantData }));
       }
     } catch (error) {
       setLoading(false);
-      if (((error as any).response.status === 401) || (error as any).response.status === 400) {
+      console.log("", error);
+      if (
+        (error as any).response.status === 401 ||
+        (error as any).response.status === 400
+      ) {
         setErrorMgs((error as any).response.data.message);
-        toast.error('incorrect credentials');
+        toast.error("incorrect credentials");
       }
     } finally {
       setLoading(false);
+      toast.error("Please re-check your network connection");
     }
   };
 
@@ -96,7 +98,7 @@ const Login = () => {
 
   return (
     <>
-    <ToastContainer/>
+      <ToastContainer />
       <div
         className={`grid grid-cols-1 md:grid-cols-2  overflow-hidden font-inter`}
       >
@@ -218,8 +220,10 @@ const Login = () => {
                 onClick={() => signIn("google")}
               >
                 <FcGoogle className="text-xl" />
-                <a href="https://cartle-backend-800v.onrender.com/merchants/google">   <span>Continue with Google</span></a>
-             
+                <a href="https://cartle-test.onrender.com/merchants/google">
+                  {" "}
+                  <span>Continue with Google</span>
+                </a>
               </div>
 
               <p className="mt-3 text-sm lg:text-base">

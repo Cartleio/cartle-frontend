@@ -10,8 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { activeStore, addStore } from "@/app/redux/feature/storeSlice";
 import "react-toastify/dist/ReactToastify.css";
-import { toast,ToastContainer } from "react-toastify";
-
+import { toast, ToastContainer } from "react-toastify";
 
 const CreateStore = () => {
   const [storeName, setStoreName] = useState<string>("");
@@ -30,12 +29,12 @@ const CreateStore = () => {
       setErrorMsg("Please enter a store name");
       return;
     }
-    const name = storeName
+    const name = storeName;
     try {
       const response = await axios.post(
-        "https://cartle-backend-800v.onrender.com/stores/",
+        "https://cartle-test.onrender.com/stores/",
         {
-         name,
+          name,
         },
         {
           headers: {
@@ -43,9 +42,9 @@ const CreateStore = () => {
           },
         }
       );
-      console.log(response)
+      console.log(response);
 
-      if ((response.status === 201) || (response.status === 200)) {
+      if (response.status === 201 || response.status === 200) {
         setLoading(false);
         dispatch(IsCreateStoreActive());
         toast.success("Store created successfully");
@@ -70,7 +69,7 @@ const CreateStore = () => {
 
   return (
     <main className="w-screen h-screen fixed top-0 left-0 bg-[rgba(0,0,0,0.6)] z-[9999999999]">
-      <ToastContainer/>
+      <ToastContainer />
       <section className="h-full w-full flex items-center justify-center">
         <div
           className={`p-7 bg-white shadow-none sm:shadow-2xl rounded-3xl mx-auto w-[70%]  md:w-[60%] lg:w-[40%] xl:w-[30%]   transition-transform duration-700 ease-in-out  flex flex-col gap-6`}

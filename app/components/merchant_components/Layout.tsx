@@ -101,7 +101,7 @@ function Layout({ children }: { children: React.ReactNode }) {
   );
 
   //UPGRADE PLAN
-  const planUrl = "https://cartle-backend-800v.onrender.com/subscriptions/";
+  const planUrl = "https://cartle-test.onrender.com/subscriptions/";
   const upgradePlan = () => {
     const planId = parseInt(temporaryId);
     const token = user.token;
@@ -227,7 +227,7 @@ function Layout({ children }: { children: React.ReactNode }) {
                             activeStoreId === store.id
                               ? "bg-primary-500 text-white"
                               : ""
-                          } hover:bg-orange-100 font-bold hover:shadow-lg hover:font-bold rounded-l-md transition-[background] ease-linear flex items-center gap-2`}
+                          } hover:bg-orange-100 font-bold hover:shadow-lg hover:text-[#444748] hover:font-bold rounded-l-md transition-[background] ease-linear flex items-center gap-2`}
                         >
                           <IoStorefrontSharp />
                           <p className="">{store.name}</p>

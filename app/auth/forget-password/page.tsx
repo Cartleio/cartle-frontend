@@ -7,7 +7,7 @@ import { useState } from "react";
 import Image from "next/image";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
-import { toast,ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
 const ForgetPassword = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -27,7 +27,7 @@ const ForgetPassword = () => {
     try {
       setLoading(true);
       const response = await axios.post(
-        "https://cartle-backend-800v.onrender.com/merchants/forgot-password",
+        "https://cartle-test.onrender.com/merchants/forgot-password",
         merchantEmail
       );
       if (response?.status === 200 || response?.status === 201) {
@@ -49,7 +49,7 @@ const ForgetPassword = () => {
 
   return (
     <>
-      <ToastContainer/>
+      <ToastContainer />
       <section
         className={`bg-white sm:bg-orange-500 relative py-8 min-h-screen overflow-x-hidden ${styles.avenirFont} text-[#444748] md:flex-col items-center justify-center`}
       >

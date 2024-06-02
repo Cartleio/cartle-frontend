@@ -16,7 +16,7 @@ interface MerchantDataState {
   storeLoaded: boolean;
 }
 
-const url = "https://cartle-backend-800v.onrender.com/merchant/stores";
+const url = "https://cartle-test.onrender.com/stores";
 
 export const getStores = createAsyncThunk(
   "merchantData/getStores",
@@ -32,6 +32,8 @@ export const getStores = createAsyncThunk(
       });
       return resp.data.stores;
     } catch (error) {
+      console.log(error);
+      window.location.href = "/merchant/products";
       return thunkAPI.rejectWithValue("something went wrong");
     }
   }

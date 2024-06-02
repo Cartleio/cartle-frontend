@@ -9,7 +9,7 @@ export const getStoreDetails: any = createAsyncThunk(
       const currentState: any = thunkAPI.getState();
       const { activeStoreId } = currentState?.merchantData;
       const { token } = currentState?.auth.user;
-      const url = `https://cartle-backend-800v.onrender.com/merchant/store/${activeStoreId}`;
+      const url = `https://cartle-test.onrender.com/merchant/store/${activeStoreId}`;
       const resp = await axios.get(url, {
         withCredentials: true,
         headers: {

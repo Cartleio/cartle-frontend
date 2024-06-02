@@ -21,7 +21,7 @@ export default function RootLayout({
         <link rel="shortcut icon" href="/favicon/favicon.ico" />
       </head>
       <ReduxProvider>
-        <body className={`${inter.variable} min-w-[400px]`}>{children}</body>
+        <body className={`${inter.variable} min-w-[250px]`}>{children}</body>
       </ReduxProvider>
     </html>
   );

@@ -37,7 +37,7 @@ const SingleProduct = ({ params: { product_id } }: Params) => {
   const { user } = useSelector((state: any) => state.auth);
 
   //API URL
-  const url = `https://cartle-backend-800v.onrender.com/merchant/store/${activeStoreId}/product/${product_id}`;
+  const url = `https://cartle-test.onrender.com/stores/${activeStoreId}/products/${product_id}`;
 
   //REQUESTS FOR PRODUCT INFORMATION
   const getProductInfo = async () => {
@@ -56,7 +56,8 @@ const SingleProduct = ({ params: { product_id } }: Params) => {
       }
     } catch (error) {
       setPageLoading(false);
-      toast.error("Product Update Failed");
+      toast.error("couldn't get product details, please try again later");
+      path.push("/merchant/products");
     }
   };
 
@@ -95,7 +96,7 @@ const SingleProduct = ({ params: { product_id } }: Params) => {
   });
 
   //HANDLES PRODUCT UPDATE ON CHANGE
-  const handleProductchange = (e: any) => {
+  const handleProductChange = (e: any) => {
     if (
       e.target.name === "weight" ||
       e.target.name === "price" ||
@@ -195,16 +196,16 @@ const SingleProduct = ({ params: { product_id } }: Params) => {
           Authorization: `Bearer ${token}`,
         },
       });
-
+      console.log(response);
+      toast.success("Product Updated Successfully");
       if (response?.status === 200) {
         setSaveLoading(false);
         setEditProduct(true);
-        toast.success("Product Updated Successfully");
+
         getProductInfo();
       }
     } catch (error) {
       setSaveLoading(false);
-
       toast.error("Product Update Failed");
     }
   };
@@ -279,8 +280,8 @@ const SingleProduct = ({ params: { product_id } }: Params) => {
                       d="M30 47.5L12.5 30L30 12.5"
                       stroke="#121212"
                       stroke-width="2.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     />
                   </svg>
                 </Link>
@@ -359,7 +360,7 @@ const SingleProduct = ({ params: { product_id } }: Params) => {
                     type="text"
                     name="title"
                     disabled={editProduct}
-                    onChange={handleProductchange}
+                    onChange={handleProductChange}
                     value={productData.title}
                     className="border border-[#B6B6B6] focus:outline-none active:outline-none w-full h-10 px-2 rounded-md shadow-sm"
                     id="product_name"
@@ -399,7 +400,7 @@ const SingleProduct = ({ params: { product_id } }: Params) => {
                 <textarea
                   name="description"
                   disabled={editProduct}
-                  onChange={handleProductchange}
+                  onChange={handleProductChange}
                   value={productData.description}
                   className="border border-[#B6B6B6] focus:outline-none active:outline-none w-full h-40 md:45 p-2 rounded-md shadow-sm"
                   id="description"
@@ -424,7 +425,7 @@ const SingleProduct = ({ params: { product_id } }: Params) => {
                       multiple
                       disabled={editProduct}
                       name="productImages"
-                      onChange={handleProductchange}
+                      onChange={handleProductChange}
                       accept="image/jpg, image/jpeg, image/png"
                       className=" focus:outline-none active:outline-none opacity-0 w-full"
                       id="product_name"
@@ -525,11 +526,14 @@ const SingleProduct = ({ params: { product_id } }: Params) => {
                       <input
                         type="number"
                         name="weight"
-                        onChange={handleProductchange}
+                        onChange={handleProductChange}
                         disabled={editProduct}
                         value={productData.weight}
                         className="border border-[#B6B6B6] focus:outline-none active:outline-none w-56 h-10 px-2 rounded-md shadow-sm"
                         placeholder="0.00"
+                        min="0"
+                        max="5000"
+                        step="0.01"
                       />
                       <select
                         name="weight"
@@ -601,7 +605,7 @@ const SingleProduct = ({ params: { product_id } }: Params) => {
                         name="price"
                         id="price"
                         disabled={editProduct}
-                        onChange={handleProductchange}
+                        onChange={handleProductChange}
                         value={productData.price}
                         className="border border-[#B6B6B6] focus:outline-none active:outline-none w-full h-10 px-2 rounded-md shadow-sm"
                         placeholder="0.00"
@@ -643,7 +647,7 @@ const SingleProduct = ({ params: { product_id } }: Params) => {
                         type="number"
                         id="costPerItem"
                         name="costPerItem"
-                        onChange={handleProductchange}
+                        onChange={handleProductChange}
                         value={productData.costPerItem}
                         className="my-2 border border-[#B6B6B6] focus:outline-none active:outline-none w-full h-10 px-2 rounded-md shadow-sm"
                         placeholder="0.00"
@@ -653,7 +657,7 @@ const SingleProduct = ({ params: { product_id } }: Params) => {
                 </div>
               </div>
 
-              {/* PRODUCT ORGANISATION */}
+              {/* PRODUCT ORGANIZATION */}
               <div className="flex flex-col gap-2 mb-3">
                 <div className="border border-[#B6B6B6] w-full rounded-md flex flex-col shadow-sm">
                   <div className="flex flex-col gap-3 p-3">
@@ -676,7 +680,6 @@ const SingleProduct = ({ params: { product_id } }: Params) => {
                         <option value="Clothing">Clothing</option>
                         <option value="Shoes">Shoes</option>
                         <option value="Accessories">Accessories</option>
-                        <option value="Jewellery">Jewellery</option>
                       </select>
                     </div>
                     <div>
@@ -687,7 +690,7 @@ const SingleProduct = ({ params: { product_id } }: Params) => {
                         disabled={editProduct}
                         name="vendor"
                         value={productData.vendor}
-                        onChange={handleProductchange}
+                        onChange={handleProductChange}
                         className="my-1 border border-[#B6B6B6] focus:outline-none active:outline-none w-full h-10 px-2 rounded-md shadow-sm"
                       />
                     </div>
@@ -697,7 +700,7 @@ const SingleProduct = ({ params: { product_id } }: Params) => {
                         type="text"
                         id="collections"
                         name="collections"
-                        onChange={handleProductchange}
+                        onChange={handleProductChange}
                         disabled={editProduct}
                         className="my-1 border border-[#B6B6B6] focus:outline-none active:outline-none w-full h-10 px-2 rounded-md shadow-sm"
                       />

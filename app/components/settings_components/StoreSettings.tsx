@@ -132,7 +132,7 @@ const StoreSettings = () => {
     try {
       setLoading(true);
       const response = await axios.put(
-        `https://cartle-backend-800v.onrender.com/merchant/edit-store-details/${activeStoreId}`,
+        `https://cartle-test.onrender.com/merchant/edit-store-details/${activeStoreId}`,
         storeData,
         {
           headers: {

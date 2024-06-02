@@ -71,7 +71,7 @@ const Profile = () => {
       setLoading(true);
       const token = user.token;
       const response = await axios.put(
-        `https://cartle-backend-800v.onrender.com/merchant/profile`,
+        `https://cartle-test.onrender.com/merchant/profile`,
         merchantProfile,
         {
           headers: {

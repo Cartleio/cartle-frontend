@@ -18,6 +18,13 @@ function CreateAccount() {
     }, 200);
   }, []);
 
+  const googleSignIn = async () => {
+    const response = await fetch(
+      "https://cartle-test.onrender.com/merchants/google"
+    );
+    console.log(response);
+  };
+
   return (
     <section
       className={`bg-white sm:bg-orange-500 relative py-8 min-h-screen overflow-x-hidden ${styles.avenirFont} text-[#444748] md:flex items-center justify-center`}
@@ -41,10 +48,13 @@ function CreateAccount() {
             <MdOutlineAttachEmail />
             <span>Sign up with email</span>
           </Link>
-          <div className="bg-[#E7E7E7] py-3 w-full rounded-md flex items-center justify-center gap-2 font-semibold cursor-pointer">
+          <Link
+            href={"https://cartle-test.onrender.com/merchants/google"}
+            className="bg-[#E7E7E7] py-3 w-full rounded-md flex items-center justify-center gap-2 font-semibold cursor-pointer"
+          >
             <FcGoogle className="text-xl" />
             <span>Sign up with Google</span>
-          </div>
+          </Link>
         </div>
         <div className="flex gap-3 items-center">
           <div className="h-[0.8px] flex-1 bg-slate-400"></div>

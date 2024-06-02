@@ -9,14 +9,12 @@ import Newsletter from "./components/landingpage_components/Newsletter";
 export default async function Home() {
   return (
     <main className={`text-[#353738] w-full  font-inter`}>
-        <Hero/>
-      <Features/>
-      <Faq/>
-      <AdSupport/>
-      <Newsletter/>
-      <Footer/>
-   
-      
+      <Hero />
+      <Features />
+      <Faq />
+      <AdSupport />
+      <Newsletter />
+      <Footer />
     </main>
   );
 }

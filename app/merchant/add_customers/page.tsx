@@ -96,7 +96,7 @@ function AddCustomer() {
       const token = user.token;
       setLoading(true);
       const response = await axios.post(
-        `https://cartle-backend-800v.onrender.com/merchant/${activeStoreId}/customers`,
+        `https://cartle-test.onrender.com/merchant/${activeStoreId}/customers`,
         customerData,
         {
           headers: {

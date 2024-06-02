@@ -9,7 +9,7 @@ import LoadingSpinner from "@/app/components/LoadingSpinner";
 import axios, { AxiosError } from "axios";
 import Image from "next/image";
 import "react-toastify/dist/ReactToastify.css";
-import { toast,ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import { useSelector } from "react-redux";
 
 interface User {
@@ -44,7 +44,7 @@ function Register() {
     try {
       setLoading(true);
       const response = await axios.post(
-        "https://cartle-backend-800v.onrender.com/merchants/register",
+        "https://cartle-test.onrender.com/merchants/register",
         user
       );
       if (response.status === 200 || response.status === 201) {
@@ -64,7 +64,7 @@ function Register() {
 
   return (
     <>
-      <ToastContainer/>
+      <ToastContainer />
       <section
         className={`bg-white sm:bg-orange-500 relative py-8 min-h-screen overflow-x-hidden ${styles.avenirFont} text-[#444748]`}
       >

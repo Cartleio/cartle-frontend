@@ -1,5 +1,8 @@
 "use client";
 import React from "react";
+import { useState } from "react";
+import UpdateItem from "./UpdateItem";
+
 type StoreUpdateData = {
   id: number;
   title: string;
@@ -8,72 +11,63 @@ type StoreUpdateData = {
   border: boolean;
 };
 
-function Update(storeUpdate: StoreUpdateData) {
-  const { title, text, btnData, border } = storeUpdate;
+const storeUpdateData: StoreUpdateData[] = [
+  {
+    id: 1,
+    title: "Name your store",
+    text: "A properly named store is a store already set up for success",
+    btnData: "Name Store",
+    border: true,
+  },
+  {
+    id: 2,
+    title: "Customize your online store",
+    text: "Add your logo and choose a theme that highlights your brand",
+    btnData: "Customize store",
+    border: true,
+  },
+  {
+    id: 3,
+    title: "Add a custom domain",
+    text: "Let Cartle create a domain just for you",
+    btnData: "Add domain",
+    border: true,
+  },
+  {
+    id: 4,
+    title: "Add your first product",
+    text: "To sell, you need products first. Find products to sell or add yours",
+    btnData: "Add products",
+    border: false,
+  },
+];
+function Update() {
+  const [completed, setCompleted] = useState(1);
   return (
-    <>
-      <div
-        className={`flex items-center gap-4 mb-4 ${border && "border-b"} py-2`}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-        >
-          <path
-            d="M23 12C23.5523 12 24.0043 12.4485 23.9584 12.9989C23.8034 14.8543 23.2186 16.6487 22.2505 18.2391C21.9634 18.7109 21.3339 18.8069 20.8877 18.4815L20.6861 18.3345C20.2399 18.0091 20.1469 17.3857 20.425 16.9085C21.1229 15.7106 21.5574 14.3774 21.6993 12.9983C21.7559 12.4489 22.1983 12 22.7506 12H23Z"
-            fill="#D9D9D9"
-          />
-          <path
-            d="M20.4937 5.01018C20.9201 4.65924 21.5542 4.71831 21.8684 5.17249C22.9278 6.70365 23.6164 8.46073 23.8795 10.304C23.9576 10.8507 23.5325 11.3249 22.9812 11.3571L22.7322 11.3717C22.1809 11.404 21.713 10.9817 21.6244 10.4366C21.4021 9.06814 20.8904 7.76255 20.1237 6.60749C19.8183 6.14736 19.8746 5.51962 20.3011 5.16868L20.4937 5.01018Z"
-            fill="#D9D9D9"
-          />
-          <path
-            d="M13.7453 1.13935C13.833 0.594057 14.3475 0.218902 14.8836 0.351612C16.691 0.799013 18.3698 1.66109 19.7865 2.86925C20.2067 3.22761 20.2017 3.86439 19.8096 4.25333L19.6325 4.42899C19.2404 4.81793 18.6101 4.8108 18.1831 4.46057C17.1111 3.58143 15.8637 2.94087 14.5246 2.58192C13.9911 2.43893 13.6181 1.93091 13.7058 1.38562L13.7453 1.13935Z"
-            fill="#D9D9D9"
-          />
-          <path
-            d="M6.39693 2.53398C6.11561 2.05871 6.27132 1.44124 6.76835 1.20046C8.44399 0.388705 10.286 -0.0220404 12.1477 0.000898863C12.7 0.00770318 13.1033 0.500517 13.0505 1.05028L13.0267 1.29857C12.9739 1.84833 12.4849 2.24584 11.9326 2.24965C10.5462 2.25923 9.17758 2.56443 7.91851 3.14476C7.41694 3.37594 6.8053 3.22389 6.52398 2.74862L6.39693 2.53398Z"
-            fill="#D9D9D9"
-          />
-          <path
-            d="M1.61694 8.36792C1.09563 8.18556 0.817028 7.61294 1.04214 7.10862C1.80106 5.40841 2.94551 3.90781 4.38443 2.7262C4.81125 2.37571 5.43716 2.49293 5.75091 2.94744L5.89262 3.15271C6.20637 3.60722 6.08827 4.22631 5.66827 4.58495C4.61397 5.48521 3.7636 6.60022 3.17427 7.85509C2.9395 8.355 2.37369 8.63264 1.85238 8.45028L1.61694 8.36792Z"
-            fill="#D9D9D9"
-          />
-          <path
-            d="M1.68962 15.8335C1.17196 16.026 0.591941 15.7632 0.44322 15.2313C-0.0581572 13.4381 -0.135368 11.5525 0.217732 9.72439C0.322469 9.18213 0.879052 8.87273 1.41072 9.02224L1.65083 9.08976C2.1825 9.23927 2.48686 9.79116 2.39257 10.3353C2.15587 11.7014 2.21325 13.1025 2.56083 14.4446C2.6993 14.9792 2.44107 15.5541 1.92341 15.7466L1.68962 15.8335Z"
-            fill="#D9D9D9"
-          />
-          <path
-            d="M6.4446 21.4941C6.16567 21.9708 5.55026 22.1344 5.09846 21.8168C3.57529 20.7459 2.32194 19.335 1.43814 17.6963C1.17598 17.2102 1.41103 16.6183 1.91726 16.3975L2.14589 16.2978C2.65212 16.077 3.23709 16.3116 3.50855 16.7926C4.18997 17.9999 5.12126 19.0483 6.23987 19.8673C6.68548 20.1936 6.84949 20.8021 6.57057 21.2788L6.4446 21.4941Z"
-            fill="#D9D9D9"
-          />
-          <path
-            d="M13.8615 22.8414C13.9549 23.3857 13.5894 23.9071 13.0392 23.9549C11.1843 24.1162 9.31686 23.8435 7.58552 23.1585C7.07197 22.9553 6.8708 22.3512 7.11601 21.8563L7.22676 21.6328C7.47197 21.1379 8.07062 20.9408 8.58799 21.1341C9.8867 21.6192 11.2743 21.8219 12.6575 21.7284C13.2085 21.6911 13.7258 22.0512 13.8193 22.5955L13.8615 22.8414Z"
-            fill="#D9D9D9"
-          />
-          <path
-            d="M20.4155 19.0837C20.838 19.4394 20.895 20.0736 20.5055 20.4651C19.192 21.7848 17.5892 22.7809 15.8243 23.3743C15.3008 23.5503 14.7574 23.2184 14.6256 22.6821L14.566 22.4398C14.4342 21.9035 14.7645 21.3668 15.2845 21.1807C16.5899 20.7137 17.7809 19.9735 18.7776 19.0099C19.1746 18.626 19.8022 18.5674 20.2247 18.9231L20.4155 19.0837Z"
-            fill="#D9D9D9"
-          />
-        </svg>
-        <div className="flex flex-col md:flex-row md:items-center gap-1 justify-between flex-1">
-          <div>
-            <h2 className="text-[#444748] font-bold text-sm md:text-base">
-              {title}
-            </h2>
-            <p className="text-xs md:text-sm xl:text-base">{text}</p>
-          </div>
-          <div>
-            <button className="border-2 py-[0.5em] rounded-md flex items-center justify-center px-1">
-              <span className="text-xs md:text-sm">{btnData}</span>
-            </button>
-          </div>
+    <section className="text-[#979DA0] border rounded-md p-4 md:p-6 mt-5 my-3">
+      <h1 className="font-bold text-[#444748] text-base md:text-lg ">
+        Complete your store setup
+      </h1>
+      <h2 className="text-sm md:text-base">
+        Use this guide to set your store up for success!
+      </h2>
+      <div className="flex items-center justify-center gap-3 w-fit">
+        <p className="text-[#444748]">
+          <span>{completed}</span> / 4 completed
+        </p>
+        <div className="h-1 w-20 bg-[#DBDBDB] rounded-md">
+          {completed === 1 && (
+            <div className="bg-primary-500 rounded-md w-2 h-1"></div>
+          )}
         </div>
       </div>
-    </>
+
+      <div className="mt-4">
+        {storeUpdateData.map((update) => (
+          <UpdateItem key={update.id} {...update} />
+        ))}
+      </div>
+    </section>
   );
 }
 

@@ -37,8 +37,8 @@ function AddHeader(props: AddHeaderProps): JSX.Element {
                 d="M30 47.5L12.5 30L30 12.5"
                 stroke="#121212"
                 stroke-width="2.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </svg>
           </Link>

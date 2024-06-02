@@ -82,7 +82,7 @@ function AddProduct(): JSX.Element {
     sku: "sku",
     barcode: "barcode",
     status: true,
-    productType: "shoes",
+    productType: "",
     vendor: "",
     collections: [],
     tags: ["modern shoes"],
@@ -92,17 +92,19 @@ function AddProduct(): JSX.Element {
   });
 
   //HANDLES PRODUCT INFORMATION UPDATE
-  const handleProductchange = (event: any) => {
+  const handleProductChange = (event: any) => {
     event.preventDefault();
-    if (
-      event.target.name === "weight" ||
-      event.target.name === "price" ||
-      event.target.name === "costPerItem"
-    ) {
+    if (event.target.name === "price" || event.target.name === "costPerItem") {
       const value = parseInt(event.target.value);
       setProductData({
         ...productData,
         [event.target.name]: value,
+      });
+    } else if (event.target.name === "weight") {
+      console.log(event.target.value);
+      setProductData({
+        ...productData,
+        [event.target.name]: event.target.value,
       });
     } else if (event.target.name === "collections") {
       setProductData({
@@ -174,8 +176,10 @@ function AddProduct(): JSX.Element {
     try {
       const token = user.token;
       setLoading(true);
+      console.log(productData);
+
       const response = await axios.post(
-        `https://cartle-backend-800v.onrender.com/merchant/store/${activeStoreId}/product`,
+        `https://cartle-test.onrender.com/stores/${activeStoreId}/products/`,
         productData,
         {
           headers: {
@@ -194,6 +198,7 @@ function AddProduct(): JSX.Element {
       }
     } catch (error) {
       setLoading(false);
+      console.log(error);
       toast.error("product creation failed");
     }
   };
@@ -232,7 +237,7 @@ function AddProduct(): JSX.Element {
                 </label>
 
                 <input
-                  onChange={handleProductchange}
+                  onChange={handleProductChange}
                   type="text"
                   name="title"
                   value={productData.title}
@@ -273,7 +278,7 @@ function AddProduct(): JSX.Element {
               </label>
               <textarea
                 name="description"
-                onChange={handleProductchange}
+                onChange={handleProductChange}
                 value={productData.description}
                 className="border border-[#B6B6B6] focus:outline-none active:outline-none w-full h-40 md:45 p-2 rounded-md shadow-sm"
                 id="description"
@@ -289,7 +294,7 @@ function AddProduct(): JSX.Element {
 
             <div className="flex flex-col gap-2 mb-3">
               <p className="text-[#717678] text-xs lg:text-base">
-                Upload an image not more than 50KB
+                Upload an image not more than 100KB
               </p>
               <div className="border border-[#B6B6B6] h-40 w-full rounded-md flex flex-col justify-center items-center relative p-2 shadow-sm">
                 <label
@@ -302,7 +307,7 @@ function AddProduct(): JSX.Element {
                   type="file"
                   multiple
                   name="productImages"
-                  onChange={handleProductchange}
+                  onChange={handleProductChange}
                   accept="image/jpg, image/jpeg, image/png"
                   className=" focus:outline-none active:outline-none px-2 opacity-0 rounded-md w-full h-full"
                   id="product_name"
@@ -402,10 +407,13 @@ function AddProduct(): JSX.Element {
                     <input
                       type="number"
                       name="weight"
-                      onChange={handleProductchange}
+                      onChange={handleProductChange}
                       value={productData.weight}
                       className="border border-[#B6B6B6] focus:outline-none active:outline-none w-56 h-10 px-2 rounded-md shadow-sm"
                       placeholder="0.00"
+                      min="0"
+                      max="5000"
+                      step="0.01"
                     />
                     <select
                       name="weight"
@@ -476,10 +484,13 @@ function AddProduct(): JSX.Element {
                       type="number"
                       name="price"
                       id="price"
-                      onChange={handleProductchange}
+                      onChange={handleProductChange}
                       value={productData.price}
                       className="border border-[#B6B6B6] focus:outline-none active:outline-none w-full h-10 px-2 rounded-md shadow-sm"
                       placeholder="0.00"
+                      min="0"
+                      max="5000"
+                      step="0.01"
                     />
                   </div>
                   <div className="flex items-center gap-2">
@@ -517,7 +528,7 @@ function AddProduct(): JSX.Element {
                       type="number"
                       id="costPerItem"
                       name="costPerItem"
-                      onChange={handleProductchange}
+                      onChange={handleProductChange}
                       value={productData.costPerItem}
                       className="my-2 border border-[#B6B6B6] focus:outline-none active:outline-none w-full h-10 px-2 rounded-md shadow-sm"
                       placeholder="0.00"
@@ -534,15 +545,16 @@ function AddProduct(): JSX.Element {
                   <h1 className="font-bold">Product Organization</h1>
                   <div>
                     <label
-                      htmlFor="product_category"
+                      htmlFor="productType"
                       className="text-sm lg:text-base"
                     >
                       Product Category
                     </label>
 
                     <select
-                      name="product_category"
-                      id="product_category"
+                      name="productType"
+                      id="productType"
+                      onChange={handleProductChange}
                       className="border border-[#B6B6B6] focus:outline-none active:outline-none w-full h-10 px-2 rounded-md shadow-sm my-2"
                     >
                       <option value="Select Category">Select Category</option>
@@ -559,7 +571,7 @@ function AddProduct(): JSX.Element {
                       id="vendor"
                       name="vendor"
                       value={productData.vendor}
-                      onChange={handleProductchange}
+                      onChange={handleProductChange}
                       className="my-1 border border-[#B6B6B6] focus:outline-none active:outline-none w-full h-10 px-2 rounded-md shadow-sm"
                     />
                   </div>
@@ -569,7 +581,7 @@ function AddProduct(): JSX.Element {
                       type="text"
                       id="collections"
                       name="collections"
-                      onChange={handleProductchange}
+                      onChange={handleProductChange}
                       className="my-1 border border-[#B6B6B6] focus:outline-none active:outline-none w-full h-10 px-2 rounded-md shadow-sm"
                     />
                   </div>
