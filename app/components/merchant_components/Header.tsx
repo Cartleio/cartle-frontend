@@ -6,7 +6,7 @@ import { IoSettingsOutline } from "react-icons/io5";
 import styles from "../../../styles/Home.module.css";
 import { toggleSettings } from "@/app/redux/feature/settingsSlice";
 import { useDispatch } from "react-redux";
-
+import Link from "next/link";
 type HeaderData = {
   title: string;
   text: string;
@@ -43,13 +43,16 @@ function Header(props: HeaderData) {
           <div className="flex items-center w-18 gap-2 justify-end">
             <div className="relative">
               <div className="bg-orange-600 h-2 w-2 rounded-full absolute top-1 right-1"></div>
-              <IoIosNotificationsOutline fontSize={28} className="text-black" />
+             <Link className="cursor-pointer" href={'/merchant/notifications'}> <IoIosNotificationsOutline fontSize={28} className="text-black" /></Link>
             </div>
-            <IoSettingsOutline
-              fontSize={26}
-              className="text-black"
-              onClick={() => dispatch(toggleSettings())}
-            />
+            <Link className="cursor-pointer" href={'/merchant/settings'}>
+                  <IoSettingsOutline
+                    fontSize={26}
+                    className="text-black"
+                    // onClick={() => dispatch(toggleSettings())}
+                  />
+               </Link>
+           
           </div>
         </div>
       </div>
