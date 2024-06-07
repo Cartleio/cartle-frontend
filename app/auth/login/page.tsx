@@ -52,7 +52,7 @@ const Login = () => {
     try {
       setLoading(true);
       const response = await axios.post(
-        `https://cartle-test-1.onrender.com//merchants/login`,
+        `https://cartle-test-1.onrender.com/merchants/login`,
         merchant
       );
       setLoading(false);
@@ -220,7 +220,7 @@ const Login = () => {
                 onClick={() => signIn("google")}
               >
                 <FcGoogle className="text-xl" />
-                <a href="https://cartle-test-1.onrender.com//merchants/google">
+                <a href="https://cartle-test-1.onrender.com/merchants/google">
                   {" "}
                   <span>Continue with Google</span>
                 </a>

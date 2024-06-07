@@ -16,7 +16,7 @@ interface MerchantDataState {
   storeLoaded: boolean;
 }
 
-const url = "https://cartle-test-1.onrender.com//stores";
+const url = "https://cartle-test-1.onrender.com/stores";
 
 export const getStores = createAsyncThunk(
   "merchantData/getStores",

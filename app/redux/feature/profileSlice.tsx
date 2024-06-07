@@ -8,7 +8,7 @@ export const getProfile: any = createAsyncThunk(
     const currentState: any = thunkAPI.getState();
     const { token } = currentState?.auth.user;
     try {
-      const url = `https://cartle-test-1.onrender.com//merchant/profile`;
+      const url = `https://cartle-test-1.onrender.com/merchant/profile`;
       const resp = await axios.get(url, {
         headers: {
           withCredentials: true,

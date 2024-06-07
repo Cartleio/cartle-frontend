@@ -221,7 +221,7 @@ function AddProduct(): JSX.Element {
       setLoading(true);
       console.log("product data", productData);
       const response = await axios.post(
-        `https://cartle-test-1.onrender.com//stores/${activeStoreId}/products/`,
+        `https://cartle-test-1.onrender.com/stores/${activeStoreId}/products/`,
         productData,
         {
           headers: {
@@ -720,7 +720,9 @@ function AddProduct(): JSX.Element {
                     />
                   </div>
                   <div>
-                    <label htmlFor="collections">Collections</label>
+                    <label htmlFor="collections">
+                      Collections <span className="text-red-500">*</span>
+                    </label>
                     <input
                       type="text"
                       id="collections"

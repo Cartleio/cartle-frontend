@@ -27,7 +27,7 @@ const Onboarding = () => {
     setLoading(true);
     try {
       const response = await axios.put(
-        "https://cartle-test-1.onrender.com//merchant/profile",
+        "https://cartle-test-1.onrender.com/merchant/profile",
         merchant
         // {
         //   withCredentials: true,

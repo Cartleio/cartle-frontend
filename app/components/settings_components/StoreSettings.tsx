@@ -136,7 +136,7 @@ const StoreSettings = () => {
       console.log("patch data", storeData);
 
       const response = await axios.patch(
-        `https://cartle-test-1.onrender.com//stores/details/${activeStoreId}`,
+        `https://cartle-test-1.onrender.com/stores/details/${activeStoreId}`,
         storeData,
         {
           headers: {

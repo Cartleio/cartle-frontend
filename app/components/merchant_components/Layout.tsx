@@ -101,7 +101,7 @@ function Layout({ children }: { children: React.ReactNode }) {
   );
 
   //UPGRADE PLAN
-  const planUrl = "https://cartle-test-1.onrender.com//subscriptions/";
+  const planUrl = "https://cartle-test-1.onrender.com/subscriptions/";
   const upgradePlan = () => {
     const planId = parseInt(temporaryId);
     const token = user.token;

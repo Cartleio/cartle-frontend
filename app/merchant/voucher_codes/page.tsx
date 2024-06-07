@@ -108,7 +108,7 @@ function DiscountAuction() {
       const token = user.token;
       setLoading(true);
       const response = await axios.post(
-        `https://cartle-test-1.onrender.com//merchant/voucher-discounts`,
+        `https://cartle-test-1.onrender.com/merchant/voucher-discounts`,
         voucherData,
         {
           headers: {

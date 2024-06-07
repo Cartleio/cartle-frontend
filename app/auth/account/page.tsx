@@ -20,7 +20,7 @@ function CreateAccount() {
 
   const googleSignIn = async () => {
     const response = await fetch(
-      "https://cartle-test-1.onrender.com//merchants/google"
+      "https://cartle-test-1.onrender.com/merchants/google"
     );
     console.log(response);
   };
@@ -49,7 +49,7 @@ function CreateAccount() {
             <span>Sign up with email</span>
           </Link>
           <Link
-            href={"https://cartle-test-1.onrender.com//merchants/google"}
+            href={"https://cartle-test-1.onrender.com/merchants/google"}
             className="bg-[#E7E7E7] py-3 w-full rounded-md flex items-center justify-center gap-2 font-semibold cursor-pointer"
           >
             <FcGoogle className="text-xl" />

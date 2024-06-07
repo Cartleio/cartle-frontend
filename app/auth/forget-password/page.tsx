@@ -27,7 +27,7 @@ const ForgetPassword = () => {
     try {
       setLoading(true);
       const response = await axios.post(
-        "https://cartle-test-1.onrender.com//merchants/forgot-password",
+        "https://cartle-test-1.onrender.com/merchants/forgot-password",
         merchantEmail
       );
       if (response?.status === 200 || response?.status === 201) {
