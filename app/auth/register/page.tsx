@@ -44,7 +44,7 @@ function Register() {
     try {
       setLoading(true);
       const response = await axios.post(
-        "https://cartle-test.onrender.com/merchants/register",
+        "https://cartle-test-1.onrender.com//merchants/register",
         user
       );
       if (response.status === 200 || response.status === 201) {

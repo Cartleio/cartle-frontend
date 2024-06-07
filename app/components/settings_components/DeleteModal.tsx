@@ -43,7 +43,7 @@ const DeleteModal = () => {
     try {
       setLoading(true);
       const response = await axios.delete(
-        `https://cartle-test.onrender.com/merchant/delete-store/${activeStoreId}`,
+        `https://cartle-test-1.onrender.com//merchant/delete-store/${activeStoreId}`,
         {
           headers: {
             withCredentials: true,

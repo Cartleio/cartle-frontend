@@ -10,7 +10,7 @@ export const getCustomers = createAsyncThunk(
       const currentState: any = thunkAPI.getState();
       const { token } = currentState?.auth.user;
       const { activeStoreId } = currentState?.merchantData;
-      const url = `https://cartle-test.onrender.com/stores/${activeStoreId}/customers`;
+      const url = `https://cartle-test-1.onrender.com//stores/${activeStoreId}/customers`;
       const resp = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${token}`,

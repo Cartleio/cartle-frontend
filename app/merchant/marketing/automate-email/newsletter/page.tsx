@@ -45,7 +45,7 @@ const Newsletter = () => {
   const { user } = useSelector((state: any) => state.auth);
 
   //SEND NEWSLETTER EMAIL URL
-  const url = `https://cartle-test.onrender.com/merchant/send-newsletter/${activeStoreId}`;
+  const url = `https://cartle-test-1.onrender.com//merchant/send-newsletter/${activeStoreId}`;
 
   //SEND NEWSLETTER EMAIL REQUEST FUNCTION
   const handleSend = async () => {

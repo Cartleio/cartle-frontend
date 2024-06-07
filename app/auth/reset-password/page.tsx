@@ -39,7 +39,7 @@ const ResetPassword = () => {
     }
     try {
       const response = await axios.post(
-        "https://cartle-test.onrender.com/merchants/reset-password",
+        "https://cartle-test-1.onrender.com//merchants/reset-password",
         {
           password,
           token,

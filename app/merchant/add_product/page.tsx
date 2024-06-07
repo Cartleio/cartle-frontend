@@ -10,6 +10,7 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { useRouter } from "next/navigation";
 import AddHeader from "@/app/components/merchant_components/AddHeader";
 import { FaCheck, FaDollarSign } from "react-icons/fa6";
+import { useRef } from "react";
 import Image from "next/image";
 import { IoIosClose } from "react-icons/io";
 import axios from "axios";
@@ -44,11 +45,16 @@ type ProductData = {
   originalPrice: Number | null;
   quantity: Number | null | any;
   discountedPrice: Number | null;
+  variant: { [key: string]: string[] };
 };
 
 function AddProduct(): JSX.Element {
   //USE ROUTER INSTANCE
   const path = useRouter();
+
+  const variantType = useRef<any>();
+
+  const variantValue = useRef<any>();
 
   //GET ACTIVE STORE ID FROM REDUX STORE
   const { activeStoreId } = useSelector((store: any) => store.merchantData);
@@ -100,6 +106,7 @@ function AddProduct(): JSX.Element {
     productImages: [],
     originalPrice: 0.0,
     discountedPrice: 0.0,
+    variant: {},
   });
 
   //HANDLES PRODUCT INFORMATION UPDATE
@@ -125,21 +132,26 @@ function AddProduct(): JSX.Element {
     } else if (event.target.name === "productImages") {
       if (event.target.files && event.target.files.length > 0) {
         setFileNumber(event.target.files.length);
-        const maxFileSizeKB = 1000;
+        const maxFileSizeKB = 10000000;
         const fileList = event.target.files;
+
+        setProductData((prevProductData) => ({
+          ...prevProductData,
+          productImages: [...prevProductData.productImages, ...fileList],
+        }));
 
         //CHECK THE FILE SIZE BEFORE PROCESSING
         const isFileSizeValid = Array.from(fileList).every(
           (file: any) => file.size <= maxFileSizeKB * 1024
         );
 
-        if (!isFileSizeValid) {
-          // HANDLE INVALID FILE SIZE (greater than 100KB)
-          toast.error(
-            "One of the Files size exceeds the maximum limit of 100KB"
-          );
-          return;
-        }
+        // if (!isFileSizeValid) {
+        //   // HANDLE INVALID FILE SIZE (greater than 100KB)
+        //   toast.error(
+        //     "One of the Files size exceeds the maximum limit of 100KB"
+        //   );
+        //   return;
+        // }
 
         let pictureArray: string[] = [];
 
@@ -161,14 +173,14 @@ function AddProduct(): JSX.Element {
           Promise.all(imagePromises)
             .then((results: any) => {
               pictureArray = results;
-              setProductData((prevProductData) => ({
-                ...prevProductData,
-                productImages: [
-                  ...prevProductData.productImages,
-                  ...pictureArray,
-                ],
-              }));
-              // setImagePreview([...imagePreview, ...pictureArray]);
+              // setProductData((prevProductData) => ({
+              //   ...prevProductData,
+              //   productImages: [
+              //     ...prevProductData.productImages,
+              //     ...pictureArray,
+              //   ],
+              // }));
+              setImagePreview([...imagePreview, ...pictureArray]);
             })
             .catch((error) => console.error(error));
         };
@@ -183,6 +195,23 @@ function AddProduct(): JSX.Element {
     }
   };
 
+  const handleVariantUpdate = (event: any) => {
+    event.preventDefault();
+    if (variantType.current.value === "" || variantValue.current.value === "") {
+      toast.error("Please enter a valid variant");
+      return;
+    }
+    setProductData({
+      ...productData,
+      variant: {
+        ...productData.variant,
+        [variantType.current.value]: variantValue.current.value
+          .split(",")
+          .map((item: string) => item.trim()),
+      },
+    });
+  };
+
   //HANDLE PRODUCT UPDATE TO THE DATABASE
   const handleSave = async () => {
     console.log(imagePreview);
@@ -190,9 +219,9 @@ function AddProduct(): JSX.Element {
     try {
       const token = user.token;
       setLoading(true);
-      console.log(productData);
+      console.log("product data", productData);
       const response = await axios.post(
-        `https://cartle-test.onrender.com/stores/${activeStoreId}/products/`,
+        `https://cartle-test-1.onrender.com//stores/${activeStoreId}/products/`,
         productData,
         {
           headers: {
@@ -233,6 +262,18 @@ function AddProduct(): JSX.Element {
     setProductData({
       ...productData,
       productImages: newImages,
+    });
+  };
+
+  //HANDLES PRODUCT FILTER DURING PREVIEW
+  const handleVariantDelete = (variantKey: string) => {
+    setProductData({
+      ...productData,
+      variant: Object.fromEntries(
+        Object.entries(productData.variant).filter(
+          ([key]) => key !== variantKey
+        )
+      ),
     });
   };
 
@@ -306,7 +347,7 @@ function AddProduct(): JSX.Element {
 
             <div className="flex flex-col gap-2 mb-3">
               <p className="text-[#717678] text-xs lg:text-base">
-                Upload an image not more than 10MB
+                Upload an image not more than 5MB
               </p>
               <div className="border border-[#B6B6B6] h-40 w-full rounded-md flex flex-col justify-center items-center relative p-2 shadow-sm">
                 <label
@@ -339,9 +380,9 @@ function AddProduct(): JSX.Element {
             </div>
 
             {/* IMAGES PREVIEW */}
-            {productData.productImages.length > 0 && (
+            {imagePreview.length > 0 && (
               <div className="grid grid-cols-3 gap-2 border border-[#B6B6B6] rounded-md p-4">
-                {productData.productImages.map((imageUrl, index) => {
+                {imagePreview.map((imageUrl, index) => {
                   return (
                     <div className="relative" key={index}>
                       <div
@@ -454,7 +495,7 @@ function AddProduct(): JSX.Element {
             {/* PRODUCT VARIANTS */}
             <div className="flex flex-col gap-2 mb-3">
               <div className="border border-[#B6B6B6] w-full rounded-md flex flex-col shadow-sm">
-                <div className="flex flex-col p-3 my-3">
+                <div className="flex flex-col p-3">
                   <h1>Variants</h1>
                 </div>
                 <div className="border-t border-[#B6B6B6] p-3 flex flex-col gap-5">
@@ -464,34 +505,75 @@ function AddProduct(): JSX.Element {
                   >
                     + Add options like sizes and colors, or create your own
                   </p>
+
                   {variant && (
-                    <div className="flex flex-col gap-2 items-center">
-                      <div className="w-full flex items-center gap-x-2">
-                        <div className="flex-1 flex-col">
-                          <label htmlFor="variantType">variant Type</label>
-                          <input
-                            type="text"
-                            name="variantType"
-                            id="variantType"
-                            placeholder="color"
-                            className="w-full my-1 border border-[#B6B6B6] focus:outline-none active:outline-none h-10 px-2 rounded-md shadow-sm"
-                          />
+                    <>
+                      <p>
+                        <span className="text-red-500 mr-2">*</span>Separate the
+                        different sizes with comma
+                      </p>
+                      <div className="flex flex-col gap-2 items-center">
+                        <div className="w-full flex items-center gap-x-2">
+                          <div className="flex-1 flex-col">
+                            <label htmlFor="variantType">variant Type</label>
+                            <input
+                              type="text"
+                              name="variantType"
+                              id="variantType"
+                              placeholder="color"
+                              className="w-full my-1 border border-[#B6B6B6] focus:outline-none active:outline-none h-10 px-2 rounded-md shadow-sm"
+                              ref={variantType}
+                            />
+                          </div>
+                          <div className="flex-1 flex-col">
+                            <label htmlFor="variantValue">variant value</label>
+                            <input
+                              ref={variantValue}
+                              type="text"
+                              name="variantValue"
+                              id="variantValue"
+                              placeholder="Blue, red, orange"
+                              className="w-full my-1 border border-[#B6B6B6] focus:outline-none active:outline-none h-10 px-2 rounded-md shadow-sm"
+                            />
+                          </div>
                         </div>
-                        <div className="flex-1 flex-col">
-                          <label htmlFor="variantValue">variant value</label>
-                          <input
-                            type="text"
-                            name="variantValue"
-                            id="variantValue"
-                            placeholder="Blue"
-                            className="w-full my-1 border border-[#B6B6B6] focus:outline-none active:outline-none h-10 px-2 rounded-md shadow-sm"
-                          />
-                        </div>
+                        <button
+                          onClick={(event) => handleVariantUpdate(event)}
+                          className="rounded-md md:w-1/3 bg-orange-600 text-white py-1 px-2 cursor-pointer"
+                        >
+                          create
+                        </button>
                       </div>
-                      <button className="rounded-md md:w-1/3 bg-orange-600 text-white py-1 px-2 cursor-pointer">
-                        create
-                      </button>
-                    </div>
+                      <div className="flex flex-col gap-2">
+                        {Object.entries(productData?.variant).map(
+                          ([key, value]) => {
+                            return (
+                              <div
+                                className="flex items-center justify-between"
+                                key={key}
+                              >
+                                <div className="flex items-center gap-2">
+                                  <p className="text-sm text-orange-600 capitalize cursor-pointer font-bold">
+                                    {key}:
+                                  </p>
+                                  {value?.map((item: string) => (
+                                    <p className="text-sm" key={item}>
+                                      {item}{" "}
+                                    </p>
+                                  ))}
+                                </div>
+                                <button
+                                  onClick={() => handleVariantDelete(key)}
+                                  className="text-white text-[0.5rem] font-bold bg-red-600 h-3 w-3 rounded-full"
+                                >
+                                  X
+                                </button>
+                              </div>
+                            );
+                          }
+                        )}
+                      </div>
+                    </>
                   )}
                 </div>
               </div>

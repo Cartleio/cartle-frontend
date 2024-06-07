@@ -37,7 +37,7 @@ function Plan(props: PlanProps): JSX.Element {
   const merchantData = useSelector((state: any) => state.auth);
 
   //SUBSCRIBTION URL
-  const planUrl = "https://cartle-test.onrender.com/merchant/subscribe";
+  const planUrl = "https://cartle-test-1.onrender.com//merchant/subscribe";
 
   //GET SUBSCRIPTION DETAILS
   const { subModal, temporaryId } = useSelector(

@@ -32,7 +32,7 @@ const CreateStore = () => {
     const name = storeName;
     try {
       const response = await axios.post(
-        "https://cartle-test.onrender.com/stores/",
+        "https://cartle-test-1.onrender.com//stores/",
         {
           name,
         },

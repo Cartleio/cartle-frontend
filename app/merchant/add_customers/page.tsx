@@ -90,7 +90,7 @@ function AddCustomer() {
     setSelectedCity(value);
   };
 
-  const url = `https://cartle-test.onrender.com/stores/${activeStoreId}/customers/register`;
+  const url = `https://cartle-test-1.onrender.com//stores/${activeStoreId}/customers/register`;
 
   //HANDLE CUSTOMER UPDATE TO THE DATABASE
   const handleSave = async () => {
