@@ -18,7 +18,7 @@ const EmptyOrders = () => {
       <div className="flex gap-4">
         <Link href="/merchant/add_product">
           <button className="border bg-[#FF7900] text-white text-xs md:text-base md:w-48  rounded-lg py-2 font-bold px-3">
-            Create product
+            Create an Order
           </button>
         </Link>
       </div>

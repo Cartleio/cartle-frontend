@@ -39,7 +39,7 @@ const Accordion = ({
               <path
                 d="M1.23438 1.88281L9.49096 10.1021L17.7476 1.88281"
                 stroke="white"
-                stroke-width="2"
+                strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
@@ -57,7 +57,7 @@ const Accordion = ({
               <path
                 d="M1.375 17.916L9.59427 9.65943L1.375 1.40284"
                 stroke="#FF7600"
-                stroke-width="2"
+                strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />

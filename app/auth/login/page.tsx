@@ -43,39 +43,39 @@ const Login = () => {
   const loginMerchant = async (event: React.FormEvent): Promise<void> => {
     event.preventDefault();
     setErrorMgs("");
-    //checking for empty fields
+
     if (!merchant.email || !merchant.password) {
       setErrorMgs("Please fill all the fields");
       return;
     }
+
     try {
       setLoading(true);
       const response = await axios.post(
         `https://cartle-test.onrender.com/merchants/login`,
         merchant
       );
-      if (response.status === 200 || response.status === 201) {
-        setLoading(false);
-
-        const merchantData = response?.data;
-        toast.success("logged in successfully");
-
-        console.log(merchantData);
-        dispatch(login({ ...merchantData }));
-      }
+      setLoading(false);
+      const merchantData = response?.data;
+      toast.success("login successful");
+      console.log(merchantData);
+      dispatch(login({ ...merchantData }));
     } catch (error) {
       setLoading(false);
-      console.log("", error);
+      console.log(error);
+      if ((error as any).message === "Network Error") {
+        toast.error("Network Error, Please Try again");
+      }
+
       if (
         (error as any).response.status === 401 ||
         (error as any).response.status === 400
       ) {
         setErrorMgs((error as any).response.data.message);
         toast.error("incorrect credentials");
+      } else {
+        toast.error("Something went wrong, Please Try again");
       }
-    } finally {
-      setLoading(false);
-      toast.error("Please re-check your network connection");
     }
   };
 
@@ -87,7 +87,7 @@ const Login = () => {
     dispatch(clearStore());
   }, [user]);
 
-  //REDIRECT TO MERCHANT HOME IF USER A USER EXIST
+  // REDIRECT TO MERCHANT HOME IF USER A USER EXIST
   useEffect(() => {
     if (user) {
       router.push("/merchant/home");

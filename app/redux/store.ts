@@ -8,6 +8,7 @@ import profileReducer from "./feature/profileSlice";
 import subscriptionReducer from "./feature/subscriptionSlice";
 import vouchersReducer from "./feature/voucherSlice";
 import overlayReducer from "./feature/overlay-slice";
+import customerReducer from "./feature/customersSlice";
 
 export const store = configureStore({
   reducer: {
@@ -20,6 +21,7 @@ export const store = configureStore({
     subscription: subscriptionReducer,
     vouchers: vouchersReducer,
     overlay: overlayReducer,
+    customer: customerReducer,
   },
 });
 

@@ -39,6 +39,8 @@ const StoreSettings = () => {
     (state: any) => state.settings
   );
 
+  console.log("storeDetails", storeDetails);
+
   //GET ACTIVE STORE ID FROM REDUX STORE
   const { activeStoreId } = useSelector((store: any) => store.merchantData);
 
@@ -54,7 +56,6 @@ const StoreSettings = () => {
 
   //TEMPORARY STATE TO MANAGE THE STORE UPDATE
   const [storeData, setStoreData] = useState({
-    name: storeDetails?.name,
     storeImg: storeDetails?.storeImg,
     domainName: storeDetails?.domainName,
     published: storeDetails?.published,
@@ -76,7 +77,6 @@ const StoreSettings = () => {
   useEffect(() => {
     setStoreData((prev) => ({
       ...prev,
-      name: storeDetails?.name,
       storeImg: storeDetails?.storeImg,
       domainName: storeDetails?.domainName,
       published: storeDetails?.published,
@@ -118,6 +118,8 @@ const StoreSettings = () => {
         };
         reader.readAsDataURL(file);
       }
+    } else if (e.target.name === "name") {
+      return;
     } else {
       setStoreData((prev) => ({
         ...prev,
@@ -129,37 +131,35 @@ const StoreSettings = () => {
   //FUNCTION TO HANDLE THE FORM SAVE (MAKES A HTTP REQUEST TO THE SERVER)
   const handleFormSave = async (formtype: String) => {
     const token = user.token;
+
     try {
       setLoading(true);
-      const response = await axios.put(
-        `https://cartle-test.onrender.com/merchant/edit-store-details/${activeStoreId}`,
+      console.log("patch data", storeData);
+
+      const response = await axios.patch(
+        `https://cartle-test.onrender.com/stores/details/${activeStoreId}`,
         storeData,
         {
           headers: {
-            withCredentials: true,
             Authorization: `Bearer ${token}`,
           },
         }
       );
-      if (response?.status === 200) {
-        setLoading(false);
-        toast.success("Store updated successfully");
-        setEditBillingDetails(true);
-        setEditStoreDetails(true);
-        dispatch(getStores());
-        dispatch(getStoreDetails());
-      }
+      console.log("response", response);
+      setLoading(false);
+      toast.success("Store updated successfully");
+      setEditBillingDetails(true);
+      setEditStoreDetails(true);
+      dispatch(getStores());
     } catch (error) {
       setLoading(false);
-      if (error) {
-        toast.error("Store update failed");
-      }
+      console.log("error", (error as any).response.data.error[0].message);
+      toast.error((error as any).response.data.error[0].message);
     }
   };
 
   return (
     <>
-      <ToastContainer />
       <section className="flex flex-col gap-8">
         {/* STORE DETAILS */}
         <article className="border rounded-md">
@@ -208,7 +208,7 @@ const StoreSettings = () => {
                 <div className="w-full h-full bg-transparent absolute top-1/2 -translate-y-1/2 text-xl flex items-center rounded-full justify-center -z-40">
                   <img
                     src={storeData.storeImg}
-                    alt={storeData.name}
+                    alt={storeDetails?.name}
                     className="w-full h-full object-fit rounded-full"
                   />
                 </div>
@@ -225,7 +225,7 @@ const StoreSettings = () => {
                   disabled={editStoreDetails}
                   onChange={handleStoreSettingsFormUpdate}
                   name="name"
-                  value={storeData.name || ""}
+                  value={storeDetails.name || ""}
                 />
               </div>
               {/* STORE CONTACT EMAIL */}

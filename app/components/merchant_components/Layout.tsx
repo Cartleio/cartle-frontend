@@ -29,13 +29,13 @@ import {
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import { login, logout } from "@/app/redux/feature/auth-slice";
-import Settings from "../settings_components/Settings";
 import { getStoreDetails } from "@/app/redux/feature/settingsSlice";
 import { getProfile } from "@/app/redux/feature/profileSlice";
 import LoadingSpinner from "../LoadingSpinner";
 import { closeSubModal } from "@/app/redux/feature/subscriptionSlice";
 import { getPlanName } from "../utils/data";
 import Overlay from "@/app/merchant/marketing/Overlay";
+import SettingsComponent from "../settings_components/SettingsComponent";
 
 function Layout({ children }: { children: React.ReactNode }) {
   //SIDEBAR OPEN AND CLOSE STATE
@@ -59,11 +59,11 @@ function Layout({ children }: { children: React.ReactNode }) {
   const { user } = useSelector((state: any) => state.auth);
 
   //ROUTE PROTECTION IF THE USER IS NOT LOGGED IN
-  useEffect(() => {
-    if (!user) {
-      router.push("/auth/login");
-    }
-  }, [user, router]);
+  // useEffect(() => {
+  //   if (!user) {
+  //     router.push("/auth/login");
+  //   }
+  // }, [user, router]);
 
   //ACCESSING STORE CREATION STATE
   const { isCreateStoreActive } = useSelector(
@@ -293,9 +293,6 @@ function Layout({ children }: { children: React.ReactNode }) {
           <Overlay />
         </section>
       </div>
-
-      {/* ONLY MAKE SETTINGS VISIBLE IF STORE DATA EXIST */}
-      {storeData && <Settings />}
 
       {/* CONTINUE TO SUBSCRIBE MODAL */}
       {subModal && (

@@ -7,9 +7,9 @@ import Shipping from "./Shipping";
 import StoreSettings from "./StoreSettings";
 import Payments from "./Payments";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleSettings } from "@/app/redux/feature/settingsSlice";
 import Profile from "./Profile";
 import DeleteModal from "./DeleteModal";
+import { ToastContainer } from "react-toastify";
 
 const settingNavLinks = [
   {
@@ -34,34 +34,16 @@ const settingNavLinks = [
   },
 ];
 
-const Settings = () => {
-  const { settingsModal } = useSelector((state: any) => state.settings);
-  const dispatch = useDispatch();
+const SettingsComponent = () => {
   const [activeTab, setActiveTab] = useState("store Details");
 
   //GET STORE DETAILS FROM REDUX STORE
-  const { storeDetails, deleteStore } = useSelector(
-    (state: any) => state.settings
-  );
+  const { deleteStore } = useSelector((state: any) => state.settings);
 
   return (
     <>
-      <main
-        className={`h-screen overflow-y-scroll bg-white w-full fixed top-0 left-0 z-[9999999999] ${
-          settingsModal ? "translate-y-0" : "translate-y-[100%]"
-        } transition-all duration-150 px-5 md:px-10  ease-in-out`}
-      >
-        <nav className="py-3 md:py-10 max-w-[900px] mx-auto">
-          <div className="flex items-center justify-between">
-            <h1 className={`${styles.baskerville} text-xl md:text-4xl`}>
-              Settings
-            </h1>
-            <button onClick={() => dispatch(toggleSettings())}>
-              <AiOutlineClose className="text-md md:text-3xl font-bold" />
-            </button>
-          </div>
-        </nav>
-
+      <ToastContainer />
+      <main>
         <section className="max-w-[900px] mx-auto pb-10 min-h-screen">
           <div className="flex w-full flex-col sm:flex-row md:items-center sm:justify-center gap-2 md:gap-10 my-3 md:my-8">
             {settingNavLinks.map((link) => (
@@ -70,14 +52,14 @@ const Settings = () => {
                 className="w-fit cursor-pointer"
                 onClick={() => setActiveTab(link.label)}
               >
-                <h1 className="font-bold text-xs md:text-base w-full capitalize">
+                <h1
+                  className={`font-bold text-xs md:text-base w-full capitalize px-2 py-1 ${
+                    activeTab === link.label &&
+                    "bg-orange-500 text-white rounded-xl"
+                  }`}
+                >
                   {link.label}
                 </h1>
-                <div
-                  className={`h-[0.15rem] ${
-                    activeTab === link.label ? "bg-primary-500" : ""
-                  } w-full `}
-                ></div>
               </div>
             ))}
           </div>
@@ -103,4 +85,4 @@ const Settings = () => {
   );
 };
 
-export default Settings;
+export default SettingsComponent;

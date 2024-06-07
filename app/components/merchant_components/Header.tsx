@@ -43,16 +43,21 @@ function Header(props: HeaderData) {
           <div className="flex items-center w-18 gap-2 justify-end">
             <div className="relative">
               <div className="bg-orange-600 h-2 w-2 rounded-full absolute top-1 right-1"></div>
-             <Link className="cursor-pointer" href={'/merchant/notifications'}> <IoIosNotificationsOutline fontSize={28} className="text-black" /></Link>
+              <Link className="cursor-pointer" href={"/merchant/notifications"}>
+                {" "}
+                <IoIosNotificationsOutline
+                  fontSize={28}
+                  className="text-black"
+                />
+              </Link>
             </div>
-            <Link className="cursor-pointer" href={'/merchant/settings'}>
-                  <IoSettingsOutline
-                    fontSize={26}
-                    className="text-black"
-                    // onClick={() => dispatch(toggleSettings())}
-                  />
-               </Link>
-           
+            <Link className="cursor-pointer" href={"/merchant/settings"}>
+              <IoSettingsOutline
+                fontSize={26}
+                className="text-black"
+                onClick={() => dispatch(toggleSettings())}
+              />
+            </Link>
           </div>
         </div>
       </div>

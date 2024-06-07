@@ -90,44 +90,41 @@ function AddCustomer() {
     setSelectedCity(value);
   };
 
+  const url = `https://cartle-test.onrender.com/stores/${activeStoreId}/customers/register`;
+
   //HANDLE CUSTOMER UPDATE TO THE DATABASE
   const handleSave = async () => {
     try {
+      if (!customerData.email && !customerData.password) {
+        toast.error("email and password Required");
+        return;
+      }
       const token = user.token;
       setLoading(true);
-      const response = await axios.post(
-        `https://cartle-test.onrender.com/merchant/${activeStoreId}/customers`,
-        customerData,
-        {
-          headers: {
-            withCredentials: true,
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      if (response?.status === 201) {
-        setLoading(false);
-        toast.success("Customer Created Successfully");
+      const response = await axios.post(url, customerData);
+      console.log(response);
+      setLoading(false);
+      toast.success("Customer Created Successfully");
 
-        setTimeout(() => {
-          router.push("/merchant/customers");
-        }, 1500);
+      // setTimeout(() => {
+      //   router.push("/merchant/customers");
+      // }, 1500);
 
-        setCustomerData({
-          firstname: "",
-          lastname: "",
-          email: "",
-          password: "",
-          phoneNumber: null,
-          country: "",
-          city: "",
-          state: "",
-          marketingEmail: true,
-          marketingSMS: true,
-        });
-      }
+      setCustomerData({
+        firstname: "",
+        lastname: "",
+        email: "",
+        password: "",
+        phoneNumber: null,
+        country: "",
+        city: "",
+        state: "",
+        marketingEmail: true,
+        marketingSMS: true,
+      });
     } catch (error) {
       setLoading(false);
+      console.log(error);
       toast.error("Customer creation failed");
     }
   };
@@ -205,7 +202,7 @@ function AddCustomer() {
                   Password
                 </label>
                 <input
-                  type="password"
+                  type="text"
                   name="password"
                   value={customerData?.password}
                   onChange={handleFormUpdate}

@@ -53,6 +53,8 @@ function Products() {
   //GET PRODUCTS FROM REDUX STORE
   const { products } = useSelector((store: any) => store.storeProduct);
 
+  console.log(products);
+
   return (
     <Layout>
       <div className="w-full">

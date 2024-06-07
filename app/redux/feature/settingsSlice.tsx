@@ -9,9 +9,8 @@ export const getStoreDetails: any = createAsyncThunk(
       const currentState: any = thunkAPI.getState();
       const { activeStoreId } = currentState?.merchantData;
       const { token } = currentState?.auth.user;
-      const url = `https://cartle-test.onrender.com/merchant/store/${activeStoreId}`;
+      const url = `https://cartle-test.onrender.com/stores/${activeStoreId}`;
       const resp = await axios.get(url, {
-        withCredentials: true,
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -54,6 +53,7 @@ export const settingsControlSlice = createSlice({
       })
       .addCase(getStoreDetails.rejected, (state, action) => {
         state.isLoading = false;
+        state.storeData = false;
       });
   },
 });

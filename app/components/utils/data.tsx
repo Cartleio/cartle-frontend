@@ -969,7 +969,7 @@ export const CAMPAIGN_DATA = [
   },
 ];
 
-export const formatPrice = (price: number) => {
+export const formatPriceInDollar = (price: number) => {
   const dollarsAmount = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",

@@ -34,6 +34,8 @@ function DiscountAuction() {
   //GET VOUCHER DETAILS
   const { vouchers } = useSelector((store: any) => store.vouchers);
 
+  console.log(vouchers);
+
   const generateVoucher = () => {
     const voucherCode = voucher_codes.generate({
       length: 10,

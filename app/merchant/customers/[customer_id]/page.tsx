@@ -4,7 +4,7 @@ import Layout from "@/app/components/merchant_components/Layout";
 import { CUSTOMERS } from "@/app/components/utils/data";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import Newbar from "../dashboard/Newbar";
+import Newbar from "../../dashboard/Newbar";
 
 type Params = {
   params: {
@@ -19,13 +19,13 @@ const Customer = ({ params: { customer_id } }: Params) => {
   const router = useRouter();
 
   const handleSave = () => {
-    router.push("/merchant/customers_list");
+    router.push("/merchant/customers");
   };
 
   const addHeaderData = {
     title: "Customer Database",
     text: "",
-    return_arrow_url: "/merchant/customers_list",
+    return_arrow_url: "/merchant/customers",
     saveFn: handleSave,
     loading: false,
   };

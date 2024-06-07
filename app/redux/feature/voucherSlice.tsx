@@ -10,15 +10,14 @@ export const getVouchers = createAsyncThunk(
       const currentState: any = thunkAPI.getState();
       const { token } = currentState?.auth.user;
       const { activeStoreId } = currentState?.merchantData;
-
       const url = `https://cartle-test.onrender.com/merchant/voucher-discounts/${activeStoreId}`;
-      const resp = await axios.get(url, {
+      const response = await axios.get(url, {
         headers: {
-          withCredentials: true,
           Authorization: `Bearer ${token}`,
         },
       });
-      return resp.data;
+      console.log("voucher response", response);
+      return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue("something went wrong");
     }

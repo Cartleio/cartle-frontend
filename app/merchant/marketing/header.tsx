@@ -30,7 +30,7 @@ const Header = ({ title }: { title: string }) => {
           <path
             d="M30 47.5L12.5 30L30 12.5"
             stroke="#121212"
-            stroke-width="2.5"
+            strokeWidth="2.5"
             strokeLinecap="round"
             strokeLinejoin="round"
           />

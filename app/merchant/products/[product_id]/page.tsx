@@ -46,7 +46,6 @@ const SingleProduct = ({ params: { product_id } }: Params) => {
       setPageLoading(true);
       const response = await axios.get(url, {
         headers: {
-          withCredentials: true,
           Authorization: `Bearer ${token}`,
         },
       });
@@ -57,7 +56,7 @@ const SingleProduct = ({ params: { product_id } }: Params) => {
     } catch (error) {
       setPageLoading(false);
       toast.error("couldn't get product details, please try again later");
-      path.push("/merchant/products");
+      // path.push("/merchant/products");
     }
   };
 
@@ -68,6 +67,8 @@ const SingleProduct = ({ params: { product_id } }: Params) => {
   useEffect(() => {
     getProductInfo();
   }, []);
+
+  console.log(product);
 
   //TEMPORARY STATE TO MANAGE THE PRODUCT DATA UPDATES
   const [productData, setProductData] = useState({
@@ -89,6 +90,7 @@ const SingleProduct = ({ params: { product_id } }: Params) => {
     status: product?.status,
     tags: product?.tags,
     tax: product?.tax,
+    quantity: product?.quantity,
     title: product?.title,
     vendor: product?.vendor,
     weight: product?.weight,
@@ -102,10 +104,9 @@ const SingleProduct = ({ params: { product_id } }: Params) => {
       e.target.name === "price" ||
       e.target.name === "costPerItem"
     ) {
-      const value = parseInt(e.target.value);
       setProductData({
         ...productData,
-        [e.target.name]: value,
+        [e.target.name]: e.target.value,
       });
     } else if (e.target.name === "collections") {
       setProductData({
@@ -156,6 +157,8 @@ const SingleProduct = ({ params: { product_id } }: Params) => {
     }
   };
 
+  console.log(productData);
+
   //UPDATES THE TEMPORARY STATE ONCE THE UPDATE IS SUCCESSFUL AND THE REDUX IS UPDATED
   useEffect(() => {
     setProductData({
@@ -182,6 +185,7 @@ const SingleProduct = ({ params: { product_id } }: Params) => {
       vendor: product?.vendor,
       weight: product?.weight,
       physicalProduct: true,
+      quantity: product?.quantity,
     });
   }, [product]);
 
@@ -190,20 +194,23 @@ const SingleProduct = ({ params: { product_id } }: Params) => {
     const token = user.token;
     try {
       setSaveLoading(true);
+      console.log("productData", productData);
       const response = await axios.put(url, productData, {
         headers: {
-          withCredentials: true,
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(response);
       toast.success("Product Updated Successfully");
-      if (response?.status === 200) {
-        setSaveLoading(false);
-        setEditProduct(true);
+      setSaveLoading(false);
+      // if (response?.status === 200) {
+      //   setSaveLoading(false);
+      //   setEditProduct(true);
+      //   // setTimeout(() => {
+      //   //   // getProductInfo();
+      //   // }, 1000);
+      // }
 
-        getProductInfo();
-      }
+      console.log(response);
     } catch (error) {
       setSaveLoading(false);
       toast.error("Product Update Failed");
@@ -235,6 +242,8 @@ const SingleProduct = ({ params: { product_id } }: Params) => {
           Authorization: `Bearer ${token}`,
         },
       });
+      console.log(response);
+
       if (response?.status === 204) {
         setSaveLoading(false);
         toast.success("Product Deleted Successfully");
@@ -279,7 +288,7 @@ const SingleProduct = ({ params: { product_id } }: Params) => {
                     <path
                       d="M30 47.5L12.5 30L30 12.5"
                       stroke="#121212"
-                      stroke-width="2.5"
+                      strokeWidth="2.5"
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     />
@@ -521,7 +530,7 @@ const SingleProduct = ({ params: { product_id } }: Params) => {
                     </div>
 
                     {/* PRODUCT WEIGHT */}
-                    <h1>Weight</h1>
+                    <h1>Weight (in kg)</h1>
                     <div className="flex items-center gap-2">
                       <input
                         type="number"
@@ -535,19 +544,6 @@ const SingleProduct = ({ params: { product_id } }: Params) => {
                         max="5000"
                         step="0.01"
                       />
-                      <select
-                        name="weight"
-                        id="weight"
-                        className="border border-[#B6B6B6] focus:outline-none active:outline-none w-16 h-10 px-2 rounded-md shadow-sm"
-                        disabled={editProduct}
-                      >
-                        <option value="kg" className="py-2">
-                          kg
-                        </option>
-                        <option value="lbs">ibs</option>
-                        <option value="g">g</option>
-                        <option value="tons">tons</option>
-                      </select>
                     </div>
                   </div>
                   <div className="border-t border-[#B6B6B6] p-3">
@@ -715,25 +711,21 @@ const SingleProduct = ({ params: { product_id } }: Params) => {
                   <div className="flex flex-col gap-3 p-3">
                     <h1 className="font-bold">Inventory</h1>
                     <div className="flex items-center justify-between">
-                      <p>11 Pieces left</p>
-                      <span
-                        className="text-xs text-orange-500 font-bold cursor-pointer"
-                        onClick={() => setStockUp(!stockUp)}
-                      >
-                        {stockUp ? (
-                          <span>Update Stock</span>
-                        ) : (
-                          <span>save</span>
-                        )}
-                      </span>
+                      <p>{productData.quantity} Pieces left</p>
                     </div>
                     <div>
                       <input
                         type="number"
-                        disabled={stockUp}
+                        name="quantity"
+                        disabled={editProduct}
                         className={`my-1 border ${
-                          stockUp ? " border-[#B6B6B6]" : "border-orange-500"
+                          editProduct ? "border-[#B6B6B6]" : "border-orange-500"
                         }  focus:outline-none active:outline-none w-full h-10 px-2 rounded-md shadow-sm`}
+                        onChange={handleProductChange}
+                        value={productData.quantity}
+                        min="0"
+                        max="5000000"
+                        step="0.01"
                       />
                     </div>
 

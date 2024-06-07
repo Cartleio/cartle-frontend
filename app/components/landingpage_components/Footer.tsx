@@ -18,23 +18,23 @@ const Footer = () => {
 
   const footerNavs = [
     {
-      href: "javascript:void()",
+      href: "/",
       name: "About Us",
     },
     {
-      href: "javascript:void()",
+      href: "/",
       name: "Contact ",
     },
     {
-      href: "javascript:void()",
+      href: "/",
       name: "Privacy policy",
     },
     {
-      href: "javascript:void()",
+      href: "/",
       name: "Sitemap",
     },
     {
-      href: "javascript:void()",
+      href: "/",
       name: "Terms of use",
     },
   ];

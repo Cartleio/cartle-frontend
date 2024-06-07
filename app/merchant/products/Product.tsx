@@ -1,9 +1,8 @@
 "use client";
 import React from "react";
-import { FaStar } from "react-icons/fa";
 import Link from "next/link";
 
-import { formatPriceInNaira } from "@/app/components/utils/data";
+import { formatPriceInDollar } from "@/app/components/utils/data";
 
 // LIMITING THE NUMBER OF STRING TO DISPLAY ON THE PRODUCT CARD
 function truncateTextWithStringMethod(text: string, maxLength: number) {
@@ -32,7 +31,7 @@ function Product(product: any): JSX.Element {
         <h1 className="text-xs">
           {truncateTextWithStringMethod(product?.description, 50)}
         </h1>
-        <h2 className="text-xs">{formatPriceInNaira(product?.price)}</h2>
+        <h2 className="text-xs">{formatPriceInDollar(product?.price)}</h2>
         <p className="text-xs">{product?.qty_sold}</p>
       </div>
     </Link>

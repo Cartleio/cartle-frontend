@@ -9,7 +9,7 @@ import { IoIosNotificationsOutline } from "react-icons/io";
 import { IoSettingsOutline } from "react-icons/io5";
 import { useRouter } from "next/navigation";
 import AddHeader from "@/app/components/merchant_components/AddHeader";
-import { FaCheck } from "react-icons/fa6";
+import { FaCheck, FaDollarSign } from "react-icons/fa6";
 import Image from "next/image";
 import { IoIosClose } from "react-icons/io";
 import axios from "axios";
@@ -42,6 +42,7 @@ type ProductData = {
   tags: string[];
   productImages: string[];
   originalPrice: Number | null;
+  quantity: Number | null | any;
   discountedPrice: Number | null;
 };
 
@@ -51,6 +52,9 @@ function AddProduct(): JSX.Element {
 
   //GET ACTIVE STORE ID FROM REDUX STORE
   const { activeStoreId } = useSelector((store: any) => store.merchantData);
+
+  //IMAGE PREVIEW STATE
+  const [imagePreview, setImagePreview] = useState<string[]>([]);
 
   //FILE NUMBER COUNT STATE
   const [fileNumber, setFileNumber] = useState("");
@@ -64,41 +68,48 @@ function AddProduct(): JSX.Element {
   //GET TOKEN FROM AUTH STORE
   const { user } = useSelector((state: any) => state.auth);
 
+  //CUSTOM INFORMATION STATE
+  const [customInfo, setCustomInfo] = useState(false);
+
+  //VARIANT FOR PRODUCT INFORMATION STATE
+  const [variant, setVariant] = useState(false);
+
   //TEMPORARY STATE FOR MANAGING PRODUCT UPDATE
   const [productData, setProductData] = useState<ProductData>({
     title: "",
     description: "",
     tax: false,
-    price: undefined,
+    price: 0.0,
     physicalProduct: true,
     trackQuantity: false,
-    compareAtPrice: 2444.0,
-    costPerItem: undefined,
+    compareAtPrice: 0.0,
+    costPerItem: 0.0,
     continueSellingWhenOutOfStock: false,
     requiresShipping: true,
     weight: undefined,
+    quantity: null,
     countryOfShipment: "Nigeria",
-    hsCode: "234567",
+    hsCode: "hscode",
     sku: "sku",
     barcode: "barcode",
     status: true,
     productType: "",
     vendor: "",
     collections: [],
-    tags: ["modern shoes"],
+    tags: ["tag"],
     productImages: [],
-    originalPrice: 5000.0,
-    discountedPrice: 2444.0,
+    originalPrice: 0.0,
+    discountedPrice: 0.0,
   });
 
   //HANDLES PRODUCT INFORMATION UPDATE
   const handleProductChange = (event: any) => {
     event.preventDefault();
     if (event.target.name === "price" || event.target.name === "costPerItem") {
-      const value = parseInt(event.target.value);
+      console.log(event.target.value);
       setProductData({
         ...productData,
-        [event.target.name]: value,
+        [event.target.name]: event.target.value,
       });
     } else if (event.target.name === "weight") {
       console.log(event.target.value);
@@ -114,7 +125,7 @@ function AddProduct(): JSX.Element {
     } else if (event.target.name === "productImages") {
       if (event.target.files && event.target.files.length > 0) {
         setFileNumber(event.target.files.length);
-        const maxFileSizeKB = 100;
+        const maxFileSizeKB = 1000;
         const fileList = event.target.files;
 
         //CHECK THE FILE SIZE BEFORE PROCESSING
@@ -157,6 +168,7 @@ function AddProduct(): JSX.Element {
                   ...pictureArray,
                 ],
               }));
+              // setImagePreview([...imagePreview, ...pictureArray]);
             })
             .catch((error) => console.error(error));
         };
@@ -173,17 +185,17 @@ function AddProduct(): JSX.Element {
 
   //HANDLE PRODUCT UPDATE TO THE DATABASE
   const handleSave = async () => {
+    console.log(imagePreview);
+    console.log(productData.productImages);
     try {
       const token = user.token;
       setLoading(true);
       console.log(productData);
-
       const response = await axios.post(
         `https://cartle-test.onrender.com/stores/${activeStoreId}/products/`,
         productData,
         {
           headers: {
-            withCredentials: true,
             Authorization: `Bearer ${token}`,
           },
         }
@@ -217,6 +229,7 @@ function AddProduct(): JSX.Element {
     const newImages = productData.productImages.filter(
       (_, ImgIndex) => ImgIndex !== index
     );
+    setImagePreview(imagePreview.filter((_, ImgIndex) => ImgIndex !== index));
     setProductData({
       ...productData,
       productImages: newImages,
@@ -233,9 +246,8 @@ function AddProduct(): JSX.Element {
               {/* PRODUCT NAME */}
               <div className="flex flex-col gap-2 mb-3 ">
                 <label htmlFor="product_name" className="text-black font-bold">
-                  Product Name
+                  Product Name <span className="text-red-500">*</span>
                 </label>
-
                 <input
                   onChange={handleProductChange}
                   type="text"
@@ -274,7 +286,7 @@ function AddProduct(): JSX.Element {
             {/* PRODUCT DESCRIPTION */}
             <div className="flex flex-col gap-2  mb-3">
               <label htmlFor="description" className="text-black font-bold">
-                Product Description
+                Product Description <span className="text-red-500">*</span>
               </label>
               <textarea
                 name="description"
@@ -294,14 +306,15 @@ function AddProduct(): JSX.Element {
 
             <div className="flex flex-col gap-2 mb-3">
               <p className="text-[#717678] text-xs lg:text-base">
-                Upload an image not more than 100KB
+                Upload an image not more than 10MB
               </p>
               <div className="border border-[#B6B6B6] h-40 w-full rounded-md flex flex-col justify-center items-center relative p-2 shadow-sm">
                 <label
                   htmlFor="product_name"
                   className="text-black font-bold self-start"
                 >
-                  Media
+                  Media <span className="text-red-500">*</span>
+                  <span>(At least one image is required)</span>
                 </label>
                 <input
                   type="file"
@@ -402,7 +415,7 @@ function AddProduct(): JSX.Element {
                   </div>
 
                   {/* PRODUCT WEIGHT */}
-                  <h1>Weight</h1>
+                  <h1>Weight (in kg)</h1>
                   <div className="flex items-center gap-2">
                     <input
                       type="number"
@@ -415,22 +428,25 @@ function AddProduct(): JSX.Element {
                       max="5000"
                       step="0.01"
                     />
-                    <select
-                      name="weight"
-                      id="weight"
-                      className="border border-[#B6B6B6] focus:outline-none active:outline-none w-16 h-10 px-2 rounded-md shadow-sm"
-                    >
-                      <option value="kg" className="py-2">
-                        kg
-                      </option>
-                      <option value="lbs">ibs</option>
-                      <option value="g">g</option>
-                      <option value="tons">tons</option>
-                    </select>
                   </div>
                 </div>
-                <div className="border-t border-[#B6B6B6] p-3">
-                  <p className="text-[#FF7900] ">+ Add customs information</p>
+
+                <div className="border-t border-[#B6B6B6] p-3 flex items-center gap-8">
+                  <p
+                    className="text-[#FF7900] cursor-pointer flex-1"
+                    onClick={() => setCustomInfo(!customInfo)}
+                  >
+                    + Add customs information
+                  </p>
+                  {customInfo && (
+                    <input
+                      type="text"
+                      name="customInfo"
+                      id="customInfo"
+                      placeholder="Add custom information"
+                      className="flex-1 my-2 border border-[#B6B6B6] focus:outline-none active:outline-none h-10 px-2 rounded-md shadow-sm"
+                    />
+                  )}
                 </div>
               </div>
             </div>
@@ -438,13 +454,45 @@ function AddProduct(): JSX.Element {
             {/* PRODUCT VARIANTS */}
             <div className="flex flex-col gap-2 mb-3">
               <div className="border border-[#B6B6B6] w-full rounded-md flex flex-col shadow-sm">
-                <div className="flex flex-col gap-3 p-3">
+                <div className="flex flex-col p-3 my-3">
                   <h1>Variants</h1>
                 </div>
-                <div className="border-t border-[#B6B6B6] p-3">
-                  <p className="text-[#FF7900]">
-                    + Add options like size and colour
+                <div className="border-t border-[#B6B6B6] p-3 flex flex-col gap-5">
+                  <p
+                    className="text-[#FF7900] flex-1 cursor-pointer"
+                    onClick={() => setVariant(!variant)}
+                  >
+                    + Add options like sizes and colors, or create your own
                   </p>
+                  {variant && (
+                    <div className="flex flex-col gap-2 items-center">
+                      <div className="w-full flex items-center gap-x-2">
+                        <div className="flex-1 flex-col">
+                          <label htmlFor="variantType">variant Type</label>
+                          <input
+                            type="text"
+                            name="variantType"
+                            id="variantType"
+                            placeholder="color"
+                            className="w-full my-1 border border-[#B6B6B6] focus:outline-none active:outline-none h-10 px-2 rounded-md shadow-sm"
+                          />
+                        </div>
+                        <div className="flex-1 flex-col">
+                          <label htmlFor="variantValue">variant value</label>
+                          <input
+                            type="text"
+                            name="variantValue"
+                            id="variantValue"
+                            placeholder="Blue"
+                            className="w-full my-1 border border-[#B6B6B6] focus:outline-none active:outline-none h-10 px-2 rounded-md shadow-sm"
+                          />
+                        </div>
+                      </div>
+                      <button className="rounded-md md:w-1/3 bg-orange-600 text-white py-1 px-2 cursor-pointer">
+                        create
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -478,21 +526,47 @@ function AddProduct(): JSX.Element {
               <div className="border border-[#B6B6B6] w-full rounded-md flex flex-col shadow-sm">
                 <div className="flex flex-col gap-3 p-3">
                   <h1 className="font-bold">Pricing</h1>
-                  <div>
-                    <label htmlFor="price">price</label>
-                    <input
-                      type="number"
-                      name="price"
-                      id="price"
-                      onChange={handleProductChange}
-                      value={productData.price}
-                      className="border border-[#B6B6B6] focus:outline-none active:outline-none w-full h-10 px-2 rounded-md shadow-sm"
-                      placeholder="0.00"
-                      min="0"
-                      max="5000"
-                      step="0.01"
-                    />
+                  <div className="w-full flex flex-row md:flex-col lg:flex-row items-center gap-2">
+                    <div className="flex-1 flex-shrink-0">
+                      <label htmlFor="price">
+                        Price <span className="text-red-500">*</span>
+                      </label>
+                      <div className="w-full relative h-10">
+                        <FaDollarSign className="absolute top-1/2 -translate-y-1/2 left-0 translate-x-1/2 text-sm text-black" />
+                        <input
+                          type="number"
+                          name="price"
+                          id="price"
+                          onChange={handleProductChange}
+                          value={productData.price}
+                          className="border pl-6 border-[#B6B6B6] focus:outline-none active:outline-none w-full h-full px-2 rounded-md shadow-sm"
+                          placeholder="0.00"
+                          min="0"
+                          max="100000000"
+                          step="0.01"
+                        />
+                      </div>
+                    </div>
+                    <div className="flex-1">
+                      <label htmlFor="costPerItem">Cost per item</label>
+                      <div className="w-full relative h-10">
+                        <FaDollarSign className="absolute top-1/2 -translate-y-1/2 left-0 translate-x-1/2 text-sm text-black" />
+                        <input
+                          type="number"
+                          id="costPerItem"
+                          name="costPerItem"
+                          onChange={handleProductChange}
+                          value={productData.costPerItem}
+                          className="border pl-6 border-[#B6B6B6] focus:outline-none active:outline-none w-full h-full px-2 rounded-md shadow-sm"
+                          placeholder="0.00"
+                          min="0"
+                          max="100000000"
+                          step="0.01"
+                        />
+                      </div>
+                    </div>
                   </div>
+
                   <div className="flex items-center gap-2">
                     <div
                       className={`w-4 h-4 cursor-pointer border ${
@@ -522,18 +596,6 @@ function AddProduct(): JSX.Element {
                       Add tax on this product
                     </label>
                   </div>
-                  <div>
-                    <label htmlFor="costPerItem">Cost per item</label>
-                    <input
-                      type="number"
-                      id="costPerItem"
-                      name="costPerItem"
-                      onChange={handleProductChange}
-                      value={productData.costPerItem}
-                      className="my-2 border border-[#B6B6B6] focus:outline-none active:outline-none w-full h-10 px-2 rounded-md shadow-sm"
-                      placeholder="0.00"
-                    />
-                  </div>
                 </div>
               </div>
             </div>
@@ -548,7 +610,7 @@ function AddProduct(): JSX.Element {
                       htmlFor="productType"
                       className="text-sm lg:text-base"
                     >
-                      Product Category
+                      Product Category <span className="text-red-500">*</span>
                     </label>
 
                     <select
@@ -594,7 +656,23 @@ function AddProduct(): JSX.Element {
               <div className="border border-[#B6B6B6] w-full rounded-md flex flex-col shadow-sm">
                 <div className="flex flex-col gap-3 p-3">
                   <h1 className="font-bold">Inventory</h1>
-
+                  <div>
+                    <label htmlFor="quantity">
+                      Quantity <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="number"
+                      id="quantity"
+                      name="quantity"
+                      onChange={handleProductChange}
+                      value={productData.quantity}
+                      className="my-2 border border-[#B6B6B6] focus:outline-none active:outline-none w-full h-10 px-2 rounded-md shadow-sm"
+                      placeholder="0.00"
+                      min="0"
+                      max="100000000"
+                      step="0.01"
+                    />
+                  </div>
                   <div className="flex items-center gap-2">
                     <div
                       className={`w-4 h-4 cursor-pointer border ${
