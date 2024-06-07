@@ -98,7 +98,7 @@ const StoreSettings = () => {
   //FUNCTION TO HANDLE STORE FORM INPUT ONCHANGE
   const handleStoreSettingsFormUpdate = (e: any) => {
     e.preventDefault();
-    if (!e.target.name) {
+    if (!e.target?.name) {
       setStoreData((prev) => ({
         ...prev,
         published: !storeData.published,
@@ -131,7 +131,6 @@ const StoreSettings = () => {
   //FUNCTION TO HANDLE THE FORM SAVE (MAKES A HTTP REQUEST TO THE SERVER)
   const handleFormSave = async (formtype: String) => {
     const token = user.token;
-
     try {
       setLoading(true);
       console.log("patch data", storeData);
@@ -153,11 +152,16 @@ const StoreSettings = () => {
       dispatch(getStores());
     } catch (error) {
       setLoading(false);
-      console.log("error", (error as any).response.data.error[0].message);
-      toast.error((error as any).response.data.error[0].message);
+      console.log("error", (error as any)?.response?.data?.error[0]?.message);
+      toast.error((error as any)?.response?.data?.error[0]?.message);
     }
   };
 
+  if (!storeDetails) {
+    return <div>Loading...</div>; // You can replace this with a more sophisticated loading indicator if needed
+  }
+
+  //DISPLAY THE STORE DETAILS
   return (
     <>
       <section className="flex flex-col gap-8">
@@ -207,7 +211,7 @@ const StoreSettings = () => {
               {storeData.storeImg && (
                 <div className="w-full h-full bg-transparent absolute top-1/2 -translate-y-1/2 text-xl flex items-center rounded-full justify-center -z-40">
                   <img
-                    src={storeData.storeImg}
+                    src={storeData?.storeImg}
                     alt={storeDetails?.name}
                     className="w-full h-full object-fit rounded-full"
                   />
