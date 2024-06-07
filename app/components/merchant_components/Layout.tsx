@@ -59,11 +59,11 @@ function Layout({ children }: { children: React.ReactNode }) {
   const { user } = useSelector((state: any) => state.auth);
 
   //ROUTE PROTECTION IF THE USER IS NOT LOGGED IN
-  // useEffect(() => {
-  //   if (!user) {
-  //     router.push("/auth/login");
-  //   }
-  // }, [user, router]);
+  useEffect(() => {
+    if (!user) {
+      router.push("/auth/login");
+    }
+  }, [user, router]);
 
   //ACCESSING STORE CREATION STATE
   const { isCreateStoreActive } = useSelector(
