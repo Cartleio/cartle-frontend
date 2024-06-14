@@ -9,6 +9,8 @@ import subscriptionReducer from "./feature/subscriptionSlice";
 import vouchersReducer from "./feature/voucherSlice";
 import overlayReducer from "./feature/overlay-slice";
 import customerReducer from "./feature/customersSlice";
+import homeReducer from "./feature/home-slice";
+import registrationsSlice from "./feature/registerSlice";
 
 export const store = configureStore({
   reducer: {
@@ -22,6 +24,8 @@ export const store = configureStore({
     vouchers: vouchersReducer,
     overlay: overlayReducer,
     customer: customerReducer,
+    homeUpdate: homeReducer,
+    register: registrationsSlice,
   },
 });
 

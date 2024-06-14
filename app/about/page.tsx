@@ -1,10 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Footer from "../components/landingpage_components/Footer";
+import { Footer, Header, About, AdSupport } from "@/app/components";
 import PageLoading from "../merchant/MerchantLoader";
-import Header from "../components/landingpage_components/Header";
-import AdSupport from "../components/landingpage_components/AdSupport";
-import About from "../components/landingpage_components/About";
+
 function Page() {
   const [loading, setLoading] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -12,9 +10,8 @@ function Page() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 1000); 
-
-    return () => clearTimeout(timer); 
+    }, 1000);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
@@ -25,7 +22,10 @@ function Page() {
         </div>
       ) : (
         <div className="bg-[#FFFFFF]">
-          <Header mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />
+          <Header
+            mobileMenuOpen={mobileMenuOpen}
+            setMobileMenuOpen={setMobileMenuOpen}
+          />
           <div className="pt-10">
             <About />
           </div>

@@ -2,48 +2,116 @@
 import LoadingSpinner from "@/app/components/LoadingSpinner";
 import axios from "axios";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { toast, ToastContainer } from "react-toastify";
 import { useRouter } from "next/navigation";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login } from "@/app/redux/feature/auth-slice";
 
 const Onboarding = () => {
-  const router = useRouter();
   const dispatch = useDispatch();
+  const regData = useSelector((state: any) => state.register);
+  const user = useSelector((state: any) => state.auth);
+  const [errorMgs, setErrorMgs] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string>("");
-  const [merchant, setMerchant] = useState({
-    username: "",
-  });
+  console.log(regData);
+  console.log(user);
 
-  const handleOnboarding = async (event: React.FormEvent) => {
-    event.preventDefault();
-    if (!merchant.username) {
-      setError("Please provide a username");
-      return;
-    }
-    setLoading(true);
+  const router = useRouter();
+
+  const createStore = async () => {
+    const token = user.token;
     try {
-      const response = await axios.put(
-        "https://cartle-test-1.onrender.com/merchant/profile",
-        merchant
-        // {
-        //   withCredentials: true,
-        // }
+      const response = await axios.post(
+        "https://cartle-test-1.onrender.com/stores/",
+        {
+          name: regData.storeName,
+          address: regData.storeAddress,
+          whatDoYouWantToSell: regData.whatDoYouWantToSell,
+          storePhone: regData.phoneNumber,
+          email: regData.email,
+          howWillYouGetTheGoods: regData.howWillYouGetTheGoods,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
-      if (response.status === 200) {
-        setLoading(false);
-        toast.success("Username updated Successfully");
-        router.push("/merchant/home");
-        const merchant = response?.data?.merchant;
-        dispatch(login({ ...merchant }));
-      }
+      console.log(response);
+      toast.success("Store created successfully");
+      router.push("/merchant/home");
     } catch (error) {
       setLoading(false);
+      if (
+        (error as any).response.status === 400 ||
+        (error as any).response.status === 404
+      ) {
+        router.push("/auth/login");
+        return;
+      }
+      router.push("/auth/login");
     }
   };
+
+  const updateMerchantInfo = async () => {
+    try {
+      setLoading(true);
+      const token = user.token;
+      const response = await axios.put(
+        `https://cartle-test-1.onrender.com/merchant/`,
+        {
+          address: regData.storeAddress,
+          phoneNumber: Number(regData.phoneNumber) || null,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.status === 200 || response.status === 201) {
+        createStore();
+      }
+    } catch (error) {
+      createStore();
+    }
+  };
+
+  const loginMerchant = async () => {
+    setErrorMgs("");
+    if (!regData.email || !regData.password) {
+      setErrorMgs("Please fill all the fields");
+      return;
+    }
+    try {
+      const response = await axios.post(
+        `https://cartle-test-1.onrender.com/merchants/login`,
+        {
+          email: regData.email,
+          password: regData.password,
+        }
+      );
+      const merchantData = response?.data;
+      console.log(merchantData);
+      dispatch(login({ ...merchantData }));
+      updateMerchantInfo();
+    } catch (error) {
+      console.log(error);
+      if ((error as any).message === "Network Error") {
+        toast.error("Network Error, Please Try again");
+        router.push("/auth/login");
+        return;
+      }
+      toast.error("Something went wrong, Please Try again");
+      router.push("/auth/login");
+    }
+  };
+
+  useEffect(() => {
+    loginMerchant();
+  }, []);
 
   return (
     <>
@@ -61,41 +129,15 @@ const Onboarding = () => {
               width={120}
               height={120}
             />
-            <h1 className="text-xl font-semibold text-[#444748]"></h1>
-          </div>
-
-          <form className="flex flex-col gap-4">
-            <div className="flex flex-col gap-2">
-              <label htmlFor="">What would you like to be called?</label>
-              <input
-                type="username"
-                name="username"
-                id="username"
-                value={merchant.username}
-                onChange={(event) =>
-                  setMerchant((prev) => {
-                    return {
-                      ...prev,
-                      username: event.target.value,
-                    };
-                  })
-                }
-                className="w-full hover:outline-none focus:outline-none border focus:border-orange-500 h-10 px-3 rounded-md"
-              />
-            </div>
-
             <div className="w-full">
-              <button
-                type="submit"
-                className="w-full bg-orange-500 text-white h-12 font-bold rounded-md flex items-center justify-center mt-3"
-                onClick={handleOnboarding}
-                // disabled={loading}
-              >
-                {loading ? <LoadingSpinner /> : <span>Submit Name</span>}
-              </button>
-              {error && <p className="text-red-500 py-2">{error}</p>}
+              <h1 className="text-xl font-semibold text-[#444748] mb-10">
+                Please wait while we set up your store
+              </h1>
+              <div className="w-full flex items-center justify-center">
+                <span className="loader"></span>
+              </div>
             </div>
-          </form>
+          </div>
         </div>
       </section>
     </>

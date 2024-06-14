@@ -1,8 +1,7 @@
 "use client";
 import { useState } from "react";
-import Header from "./Header";
-import Services from "./Services";
-import HeroDiv from "./HeroDiv";
+import { Header, Services, HeroDiv } from "@/app/components";
+
 const Hero = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 

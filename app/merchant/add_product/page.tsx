@@ -226,6 +226,7 @@ function AddProduct(): JSX.Element {
         {
           headers: {
             Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
           },
         }
       );
@@ -239,6 +240,7 @@ function AddProduct(): JSX.Element {
       }
     } catch (error) {
       setLoading(false);
+      console.log(JSON.stringify(error));
       console.log(error);
       toast.error("product creation failed");
     }
@@ -515,7 +517,7 @@ function AddProduct(): JSX.Element {
                       <div className="flex flex-col gap-2 items-center">
                         <div className="w-full flex items-center gap-x-2">
                           <div className="flex-1 flex-col">
-                            <label htmlFor="variantType">variant Type</label>
+                            <label htmlFor="variantType">Variant Type</label>
                             <input
                               type="text"
                               name="variantType"
@@ -526,7 +528,7 @@ function AddProduct(): JSX.Element {
                             />
                           </div>
                           <div className="flex-1 flex-col">
-                            <label htmlFor="variantValue">variant value</label>
+                            <label htmlFor="variantValue">Variant Value</label>
                             <input
                               ref={variantValue}
                               type="text"
@@ -539,9 +541,9 @@ function AddProduct(): JSX.Element {
                         </div>
                         <button
                           onClick={(event) => handleVariantUpdate(event)}
-                          className="rounded-md md:w-1/3 bg-orange-600 text-white py-1 px-2 cursor-pointer"
+                          className="rounded-md md:w-1/2 lg:w-1/3 bg-orange-600 text-white py-1 px-2 cursor-pointer"
                         >
-                          create
+                          Create varient
                         </button>
                       </div>
                       <div className="flex flex-col gap-2">

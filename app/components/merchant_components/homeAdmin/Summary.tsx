@@ -27,8 +27,13 @@ function Summary(summary: SummaryData) {
         </svg>
         <p className="text-[#444748] text-xs xl:text-base">{text}</p>
       </div>
-      <div className="w-fit text-[#FF7600] text-xs md:text-sm">
-        <Link href={`/merchant/${btn.toLowerCase()}`}>See {btn}</Link>
+      <div className="w-24 text-[#FF7600] text-xs md:text-sm ">
+        <Link
+          href={`/merchant/${btn.toLowerCase()}`}
+          className="hover:underline"
+        >
+          See {btn}
+        </Link>
       </div>
     </div>
   );

@@ -9,6 +9,7 @@ import style from "../../../styles/Home.module.css";
 
 import Image from "next/image";
 import Logo from "../../assets/cartle white 1.png";
+import Link from "next/link";
 
 const Footer = () => {
   type SocialIcon = {
@@ -115,9 +116,9 @@ const Footer = () => {
 
           <div>
             <div className="mb-6">
-              <h1
-                className={`t
-                ext-lg text-zinc-700 font-bold ${style.baskerville}`}
+              <Link
+                href="/"
+                className={`text-lg text-zinc-700 font-bold ${style.baskerville}`}
               >
                 <Image
                   className="h-8 lg:h-10 my-8 mt-4 w-auto "
@@ -126,7 +127,7 @@ const Footer = () => {
                   width={160.8}
                   height={60.9}
                 />
-              </h1>
+              </Link>
               <p className="text-white text-lg">
                 Make your sales an easier and more organised task.
               </p>

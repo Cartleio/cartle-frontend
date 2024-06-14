@@ -1,43 +1,32 @@
 "use client";
 import { HiCheck } from "react-icons/hi";
-import { useState } from "react";
 import style from "../../../styles/Home.module.css";
-type FormDataType = {
-  firstName: string;
-  storeName: string;
-  storeAddress: string;
-  phoneNumber: number | undefined;
-  sellingItems: string[];
-  goods: string[];
-};
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/app/redux/store";
+import {
+  removeArrayField,
+  updateField,
+} from "@/app/redux/feature/registerSlice";
 
-const ThirdSignUp = ({
-  formData,
-  setFormData,
-  checkboxs2,
-  setboxCondition2,
-  goods,
-}: any) => {
-  const setGoodsCheck = (index: number): void => {
-    setboxCondition2((previousCheckBoxes: boolean[]) => {
-      const newCheckBoxes = [...previousCheckBoxes];
-      newCheckBoxes[index] = !newCheckBoxes[index];
-      return newCheckBoxes;
-    });
-  };
+const goods: string[] = ["Drop shipping", "Amazon", "Self made", "Other"];
+
+const ThirdSignUp = () => {
+  const dispatch = useDispatch<AppDispatch>();
+
+  const selectedGoods = useSelector(
+    (state: RootState) => state.register.howWillYouGetTheGoods
+  );
+
+  const regData = useSelector((state: any) => state.register);
+  console.log(regData);
 
   const handleItemClick2 = (item: string, index: number): void => {
-    setGoodsCheck(index);
-    if (formData.goods.includes(item)) {
-      setFormData({
-        ...formData,
-        goods: formData.goods.filter((f: string) => f !== item),
-      });
+    if (selectedGoods.includes(item)) {
+      dispatch(
+        removeArrayField({ field: "howWillYouGetTheGoods", value: item })
+      );
     } else {
-      setFormData({
-        ...formData,
-        goods: [...formData.goods, item],
-      });
+      dispatch(updateField({ field: "howWillYouGetTheGoods", value: item }));
     }
   };
 
@@ -65,12 +54,14 @@ const ThirdSignUp = ({
           >
             <p
               className={`h-5 w-5 border ${
-                checkboxs2[index]
+                selectedGoods.includes(item)
                   ? "bg-orange-500 border-white"
                   : "border-black"
               } mr-3 rounded-sm flex items-center justify-center`}
             >
-              {checkboxs2[index] && <HiCheck className="text-white" />}
+              {selectedGoods.includes(item) && (
+                <HiCheck className="text-white" />
+              )}
             </p>
             <span className="text-sm md:text-base">{item}</span>
           </div>

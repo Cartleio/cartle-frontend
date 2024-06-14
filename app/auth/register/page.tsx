@@ -10,34 +10,30 @@ import axios, { AxiosError } from "axios";
 import Image from "next/image";
 import "react-toastify/dist/ReactToastify.css";
 import { toast, ToastContainer } from "react-toastify";
-import { useSelector } from "react-redux";
-
-interface User {
-  email: string;
-  password: string;
-}
+import { useDispatch, useSelector } from "react-redux";
+import { updateField } from "@/app/redux/feature/registerSlice";
 
 function Register() {
+  const dispatch = useDispatch();
+  const regData = useSelector((state: any) => state.register);
+  console.log(regData);
+
+  const handleFormUpdate = (e: any) => {
+    e.preventDefault();
+    const { name, value } = e.target;
+    dispatch(updateField({ field: name, value }));
+  };
+
   const [visible, setVisible] = useState<boolean>(false);
-  const [user, setUser] = useState<User>({ email: "", password: "" });
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
-  const router = useRouter();
-
-  //THIS FUNCTION HANDLES USER INPUT (CONTROLLED FORM)
-  function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
-    setUser((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  }
 
   //THIS FUNCTION HANDLES THE FROM SUBMISSION FOR REGISTRATION AND AUTHENTICATION
   const registerUser = async (e: FormEvent) => {
     setError("");
     e.preventDefault();
-    if (!user.email || !user.password) {
+    if (!regData.email || !regData.password) {
       setError("All fields are required");
       return;
     }
@@ -45,7 +41,10 @@ function Register() {
       setLoading(true);
       const response = await axios.post(
         "https://cartle-test-1.onrender.com/merchants/register",
-        user
+        {
+          email: regData.email,
+          password: regData.password,
+        }
       );
       if (response.status === 200 || response.status === 201) {
         setLoading(false);
@@ -89,8 +88,8 @@ function Register() {
                   type="email"
                   name="email"
                   id="email"
-                  value={user.email}
-                  onChange={(e) => handleInput(e)}
+                  value={regData.email}
+                  onChange={handleFormUpdate}
                   className="w-full hover:outline-none focus:outline-none border focus:border-orange-500 h-10 px-3 rounded-md"
                 />
               </div>
@@ -101,8 +100,8 @@ function Register() {
                     type={visible ? "text" : "password"}
                     name="password"
                     id="password"
-                    value={user.password}
-                    onChange={(e) => handleInput(e)}
+                    value={regData.password}
+                    onChange={handleFormUpdate}
                     className="w-full hover:outline-none focus:outline-none border focus:border-orange-500 h-10 px-3 rounded-md"
                   />
                   {visible ? (
@@ -209,7 +208,7 @@ const VerifyEmailMessage = () => {
 
       <div className="w-full flex items-center">
         A verification link has been sent to your Email, please click on the
-        link to verify your account
+        link to verify your account and continue to create your first store.
       </div>
 
       <div className="text-sm flex items-center gap-2">

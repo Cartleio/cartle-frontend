@@ -1,34 +1,44 @@
 "use client";
 import { HiCheck } from "react-icons/hi";
 import style from "../../../styles/Home.module.css";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/app/redux/store";
+import {
+  removeArrayField,
+  updateField,
+} from "@/app/redux/feature/registerSlice";
 
-const SecondSignUp = ({
-  formData,
-  setFormData,
-  checkboxs,
-  setboxCondition,
-  sellingItems,
-}: any) => {
-  const setSellingItemsCheck = (index: number) => {
-    setboxCondition((previousCheckBoxes: boolean[]) => {
-      let newCheckBoxes = [...previousCheckBoxes];
-      newCheckBoxes[index] = !newCheckBoxes[index];
-      return newCheckBoxes;
-    });
-  };
+const SecondSignUp = () => {
+  const dispatch = useDispatch<AppDispatch>();
+
+  const selectedItems = useSelector(
+    (state: RootState) => state.register.whatDoYouWantToSell
+  );
+
+  const regData = useSelector((state: any) => state.register);
+  console.log(regData);
+
+  const sellingItems: string[] = [
+    "Clothes",
+    "Home Decor",
+    "Skin Care",
+    "Bags",
+    "Electronics",
+    "Haircare",
+    "Shoes",
+    "Art work",
+    "Kitchen appliances",
+    "Jewelry",
+    "Cosmetics",
+    "Other",
+  ];
 
   const handleItemClick = (item: string, index: number) => {
-    setSellingItemsCheck(index);
-    if (formData.sellingItems.includes(item)) {
-      setFormData({
-        ...formData,
-        sellingItems: formData.sellingItems.filter((f: string) => f !== item),
-      });
+    if (selectedItems.includes(item)) {
+      dispatch(removeArrayField({ field: "whatDoYouWantToSell", value: item }));
     } else {
-      setFormData({
-        ...formData,
-        sellingItems: [...formData.sellingItems, item],
-      });
+      dispatch(updateField({ field: "whatDoYouWantToSell", value: item }));
     }
   };
 
@@ -56,10 +66,14 @@ const SecondSignUp = ({
           >
             <p
               className={`h-5 w-5 border ${
-                checkboxs[index] ? "bg-orange-500 border-white" : "border-black"
+                selectedItems.includes(item)
+                  ? "bg-orange-500 border-white"
+                  : "border-black"
               } mr-3 rounded-sm flex items-center justify-center`}
             >
-              {checkboxs[index] && <HiCheck className="text-white" />}
+              {selectedItems.includes(item) && (
+                <HiCheck className="text-white" />
+              )}
             </p>
             <span className="text-sm md:text-base">{item}</span>
           </div>

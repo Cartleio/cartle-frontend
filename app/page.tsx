@@ -1,10 +1,17 @@
-import Footer from "./components/landingpage_components/Footer";
-import Hero from "./components/landingpage_components/Hero";
-import { Features } from "./components/landingpage_components/Features";
-import Faq from "./components/landingpage_components/Faq";
-import AdSupport from "./components/landingpage_components/AdSupport";
-import Newsletter from "./components/landingpage_components/Newsletter";
-// import PageLoader from "next/dist/client/page-loader";
+import { Metadata } from "next";
+import {
+  Footer,
+  Hero,
+  Features,
+  Faq,
+  AdSupport,
+  Newsletter,
+} from "@/app/components";
+
+export const metadata: Metadata = {
+  title: "Home: Welcome to Cartle",
+  description: "Where the world sells",
+};
 
 export default async function Home() {
   return (

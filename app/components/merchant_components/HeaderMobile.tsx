@@ -25,11 +25,13 @@ export default function HeaderMobile({ setOpen, open }: any) {
             <div className="bg-orange-600 h-2 w-2 rounded-full absolute top-1 right-1"></div>
             <IoIosNotificationsOutline fontSize={28} className="text-black" />
           </div>
-          <IoSettingsOutline
-            fontSize={26}
-            className="text-black"
-            onClick={() => dispatch(toggleSettings())}
-          />
+          <Link className="cursor-pointer" href={"/merchant/settings"}>
+            <IoSettingsOutline
+              fontSize={26}
+              className="text-black"
+              onClick={() => dispatch(toggleSettings())}
+            />
+          </Link>
         </div>
       </div>
     </>

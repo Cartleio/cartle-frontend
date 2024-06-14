@@ -9,25 +9,8 @@ import { HiArrowNarrowLeft } from "react-icons/hi";
 import styles from "../../../styles/Home.module.css";
 import Spinner from "../../components/LoadingSpinner";
 
-type FormDataType = {
-  firstName: string;
-  storeName: string;
-  storeAddress: string;
-  phoneNumber: number | undefined;
-  sellingItems: string[];
-  goods: string[];
-};
-
 export default function SignUp(): JSX.Element {
   const [signupIndex, setSignupIndex] = useState<number>(1);
-  const [formData, setFormData] = useState<FormDataType>({
-    firstName: "",
-    storeName: "",
-    storeAddress: "",
-    phoneNumber: undefined,
-    sellingItems: [],
-    goods: [],
-  });
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -41,48 +24,8 @@ export default function SignUp(): JSX.Element {
     setSignupIndex(signupIndex - 1);
   };
 
-  // second signup screen check handler
-  const sellingItems: string[] = [
-    "Clothes",
-    "Home Decor",
-    "Skin Care",
-    "Bags",
-    "Electronics",
-    "Haircare",
-    "Shoes",
-    "Art work",
-    "Kitchen appliances",
-    "Jewelry",
-    "Cosmetics",
-    "Other",
-  ];
-  const [checkboxs, setboxCondition] = useState<boolean[]>(
-    Array(sellingItems.length).fill(false)
-  );
-
-  //third signup screen check handler
-  const goods: string[] = ["Drop shipping", "Amazon", "Self made", "Other"];
-
-  const [checkboxs2, setboxCondition2] = useState<boolean[]>(
-    Array(goods.length).fill(false)
-  );
-
-  const handleSubmit = (e: any) => {
-    e.stopPropagation();
+  const createAccount = (e: any) => {
     setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      setFormData({
-        firstName: "",
-        storeName: "",
-        storeAddress: "",
-        phoneNumber: undefined,
-        sellingItems: [""],
-        goods: [""],
-      });
-      setboxCondition(Array(sellingItems.length).fill(false));
-      setboxCondition2(Array(goods.length).fill(false));
-    }, 3000);
   };
 
   return (
@@ -128,27 +71,9 @@ export default function SignUp(): JSX.Element {
         </div>
 
         <div className="min-h-[75vh] md:min-h-[40vh] lg:min-h-[60vh]">
-          {signupIndex === 1 && (
-            <FirstSignUp formData={formData} setFormData={setFormData} />
-          )}
-          {signupIndex === 2 && (
-            <SecondSignUp
-              formData={formData}
-              checkboxs={checkboxs}
-              sellingItems={sellingItems}
-              setboxCondition={setboxCondition}
-              setFormData={setFormData}
-            />
-          )}
-          {signupIndex === 3 && (
-            <ThirdSignUp
-              formData={formData}
-              setFormData={setFormData}
-              checkboxs2={checkboxs2}
-              setboxCondition2={setboxCondition2}
-              goods={goods}
-            />
-          )}
+          {signupIndex === 1 && <FirstSignUp />}
+          {signupIndex === 2 && <SecondSignUp />}
+          {signupIndex === 3 && <ThirdSignUp />}
         </div>
 
         <div className=" w-full min-h-[10vh]">
@@ -212,7 +137,7 @@ export default function SignUp(): JSX.Element {
                       ? "py-2 px-2 w-fit h-fit"
                       : "py-[8px] px-[20px] md:w-[250px] md:h-[50px]"
                   }  bg-[#FF7600] flex items-center justify-between rounded-[10px] transition-all ease-linear duration-1000 `}
-                  onClick={handleSubmit}
+                  onClick={createAccount}
                 >
                   {isLoading ? (
                     <Spinner />

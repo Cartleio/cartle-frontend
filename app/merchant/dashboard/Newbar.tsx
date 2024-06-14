@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 const ApexCharts = dynamic(() => import("react-apexcharts"), { ssr: false });
 import React from "react";
 
-function Newbar() {
+function Newbar({ data }: any) {
   type SeriesData = { name: string; data: number[] };
   const options = {
     chart: {
@@ -13,7 +13,7 @@ function Newbar() {
     series: [
       {
         name: "Net Profit",
-        data: [10, 8, 17, 31, 30, 25, 8],
+        data: data,
       },
     ] as SeriesData[],
 

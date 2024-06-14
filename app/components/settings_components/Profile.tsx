@@ -71,22 +71,19 @@ const Profile = () => {
       setLoading(true);
       const token = user.token;
       const response = await axios.put(
-        `https://cartle-test-1.onrender.com/merchant/profile`,
+        `https://cartle-test-1.onrender.com/merchant/`,
         merchantProfile,
         {
           headers: {
-            withCredentials: true,
             Authorization: `Bearer ${token}`,
           },
         }
       );
-      if (response?.status === 200) {
-        setLoading(false);
-        toast.success("Profile updated successfully");
-        setEditProfileDetails(true);
-        // DISPATCH GET PROFILE: THIS INVALIDATES THE PROFILE STATE
-        dispatch(getProfile());
-      }
+      setLoading(false);
+      toast.success("Profile updated successfully");
+      setEditProfileDetails(true);
+      // DISPATCH GET PROFILE: THIS INVALIDATES THE PROFILE STATE
+      dispatch(getProfile());
     } catch (error) {
       setLoading(false);
       if (error) {

@@ -1,110 +1,15 @@
-"use client";
-import React from "react";
-import Layout from "../../components/merchant_components/Layout";
-import Header from "@/app/components/merchant_components/Header";
-import Update from "./Update";
-import Summary from "./Summary";
-import Theme from "./Theme";
+import { HomeContainer, Layout } from "@/app/components";
 import type { Metadata } from "next";
-import HeaderMobile from "@/app/components/merchant_components/HeaderMobile";
-import { useSelector } from "react-redux";
 
-// export const metadata: Metadata = {
-//   title: "Merchant",
-//   description: "Explore Your Store",
-// };
+export const metadata: Metadata = {
+  title: "Home: Welcome to Your Store",
+  description: "Where the world sells",
+};
 
 function Home() {
-  const user = useSelector((state: any) => state.auth.user);
-
-  const { profile } = useSelector((state: any) => state.profile);
-
-  type HeaderData = {
-    title: string;
-    text: string;
-  };
-
-  type SummaryData = {
-    id: number;
-    text: string;
-    btn: string;
-    border: boolean;
-  };
-
-  const headerData: HeaderData = {
-    title: "Good Day!",
-    text: `Welcome to your store,  ${
-      profile?.username ? profile?.username : `Merchant`
-    }!`,
-  };
-
-  const summaryData: SummaryData[] = [
-    {
-      id: 1,
-      text: "6 orders have yet to be delivered",
-      btn: "Orders",
-      border: true,
-    },
-    {
-      id: 2,
-      text: "Your top products are T shirts",
-      btn: "Products",
-      border: true,
-    },
-    {
-      id: 3,
-      text: "50+ orders have payments that need to be verified",
-      btn: "Orders",
-      border: true,
-    },
-    {
-      id: 4,
-      text: "50+ orders have payments that need to be verified",
-      btn: "Orders",
-      border: false,
-    },
-  ];
-
   return (
     <Layout>
-      <div className="hidden md:block">
-        <Header {...headerData} />
-      </div>
-
-      <div className="flex flex-col gap-4">
-        <Update />
-
-        <section className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-start-1 lg:col-span-2 border p-6 rounded-lg">
-            <h1 className="font-bold text-[#444748] text-lg ">Store Summary</h1>
-            {summaryData.map((summary) => (
-              <Summary key={summary.id} {...summary} />
-            ))}
-          </div>
-          <div className="lg:col-start-3 lg:col-span-1 border p-6 rounded-lg flex flex-col items-center h-40 md:h-auto">
-            <div className="w-full font-bold text-[#444748] text-lg ">
-              <h1>Updates</h1>
-            </div>
-            <p className=" flex-1 w-full flex items-center justify-center text-sm xl:text-lg font-semibold text-[#797E80] xl:p-14 text-center">
-              Updates on your store will be here
-            </p>
-          </div>
-        </section>
-
-        <section className="p-6">
-          <h1 className="font-bold text-[#444748] text-lg ">
-            Themes for your store
-          </h1>
-          <p className="text-[#979DA0] text-sm">
-            Amazing themes for your store to choose from
-          </p>
-          <div className="grid grid-col-1 md:grid-cols-2 xl:grid-cols-3 gap-6 my-6">
-            {[1, 2, 3].map((theme) => (
-              <Theme key={theme} layoutType={theme} />
-            ))}
-          </div>
-        </section>
-      </div>
+      <HomeContainer />
     </Layout>
   );
 }

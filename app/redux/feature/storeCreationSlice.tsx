@@ -17,8 +17,12 @@ export const storeCreationSlice = createSlice({
       state.created = false;
       state.error = null;
     },
-    IsCreateStoreActive: (state) => {
-      state.isCreateStoreActive = !state.isCreateStoreActive;
+    openStoreCreationOverlay: (state) => {
+      state.isCreateStoreActive = true;
+    },
+
+    closeStoreCreationOverlay: (state) => {
+      state.isCreateStoreActive = false;
     },
 
     creationSuccess: (state) => {
@@ -37,6 +41,7 @@ export const {
   startCreation,
   creationSuccess,
   creationFailure,
-  IsCreateStoreActive,
+  openStoreCreationOverlay,
+  closeStoreCreationOverlay,
 } = storeCreationSlice.actions;
 export default storeCreationSlice.reducer;

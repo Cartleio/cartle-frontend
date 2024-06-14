@@ -1,29 +1,17 @@
 "use client";
+import { updateField } from "@/app/redux/feature/registerSlice";
 import style from "../../../styles/Home.module.css";
-type FormData = {
-  firstName: string;
-  storeName: string;
-  storeAddress: string;
-  phoneNumber: number | undefined;
-  sellingItems: string[];
-  goods: string[];
-};
+import { useDispatch, useSelector } from "react-redux";
 
-type FirstSignUpProps = {
-  formData: FormData;
-  setFormData: React.Dispatch<React.SetStateAction<FormData>>;
-};
-export default function FirstSignUp({
-  formData,
-  setFormData,
-}: FirstSignUpProps): JSX.Element {
-  const handlePersonalForm = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+export default function FirstSignUp() {
+  const dispatch = useDispatch();
+  const regData = useSelector((state: any) => state.register);
+  console.log(regData);
+
+  const handleFormUpdate = (e: any) => {
+    e.preventDefault();
+    const { name, value } = e.target;
+    dispatch(updateField({ field: name, value }));
   };
 
   return (
@@ -48,11 +36,11 @@ export default function FirstSignUp({
           <input
             type="text"
             name="firstName"
-            id="firstname"
+            id="firstName"
             placeholder="John"
+            value={regData.firstName}
+            onChange={handleFormUpdate}
             className="rounded-[10px] p-2 bg-[#EFF0F1] w-full focus:outline-none focus:border-none my-1"
-            value={formData.firstName}
-            onChange={handlePersonalForm}
           />
         </div>
 
@@ -67,24 +55,26 @@ export default function FirstSignUp({
             name="storeName"
             id="storeName"
             className="rounded-[10px] p-2 bg-[#EFF0F1] w-full focus:outline-none focus:border-none my-1"
-            value={formData.storeName}
-            onChange={handlePersonalForm}
+            placeholder="Store Name"
+            value={regData.storeName}
+            onChange={handleFormUpdate}
           />
         </div>
 
         <div>
           <div>
             <label htmlFor="storeAddress" className="font-semibold">
-              Store Adddress
+              Store Address
             </label>
           </div>
           <input
             type="text"
             name="storeAddress"
             id="storeAddress"
+            value={regData.storeAddress}
+            onChange={handleFormUpdate}
             className="rounded-[10px] p-2 bg-[#EFF0F1] w-full focus:outline-none focus:border-none my-1"
-            value={formData.storeAddress}
-            onChange={handlePersonalForm}
+            placeholder="3 Banga street, Ilorin"
           />
         </div>
 
@@ -95,12 +85,12 @@ export default function FirstSignUp({
             </label>
           </div>
           <input
-            type="number"
+            type="tel"
             name="phoneNumber"
+            value={regData.phoneNumber}
+            onChange={handleFormUpdate}
             id="phone"
             className="rounded-[10px] p-2 bg-[#EFF0F1] w-full focus:outline-none focus:border-none my-1"
-            value={formData.phoneNumber}
-            onChange={handlePersonalForm}
           />
         </div>
       </div>

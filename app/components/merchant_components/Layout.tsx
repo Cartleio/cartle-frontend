@@ -14,7 +14,8 @@ import { AppDispatch } from "../../redux/store";
 import { FiPlus } from "react-icons/fi";
 import CreateStore from "./CreateStore";
 import {
-  IsCreateStoreActive,
+  openStoreCreationOverlay,
+  closeStoreCreationOverlay,
   creationFailure,
   creationSuccess,
   startCreation,
@@ -59,11 +60,11 @@ function Layout({ children }: { children: React.ReactNode }) {
   const { user } = useSelector((state: any) => state.auth);
 
   //ROUTE PROTECTION IF THE USER IS NOT LOGGED IN
-  useEffect(() => {
-    if (!user) {
-      router.push("/auth/login");
-    }
-  }, [user, router]);
+  // useEffect(() => {
+  //   if (!user) {
+  //     router.push("/auth/login");
+  //   }
+  // }, [user, router]);
 
   //ACCESSING STORE CREATION STATE
   const { isCreateStoreActive } = useSelector(
@@ -177,7 +178,7 @@ function Layout({ children }: { children: React.ReactNode }) {
                   <li
                     className={`p-2 ${
                       pathname === link.path || isActive
-                        ? "bg-primary-500 text-white"
+                        ? "bg-primary-500 shadow-md hover:shadow-md shadow-orange-500 text-white"
                         : ""
                     }  font-semibold w-full flex items-center  hover:bg-orange-100 hover:shadow-lg hover:font-bold rounded-l-md transition-[background] ease-linear `}
                     key={index}
@@ -202,7 +203,7 @@ function Layout({ children }: { children: React.ReactNode }) {
 
                 <div
                   className="parent"
-                  onClick={() => dispatch(IsCreateStoreActive())}
+                  onClick={() => dispatch(openStoreCreationOverlay())}
                 >
                   <FiPlus className="text-xl cursor-pointer" />
                   <div className="hidden-element text-[0.6rem] w-20 rounded-sm shadow-md -top-5 -left-[150%] flex items-center justify-center">
@@ -225,7 +226,7 @@ function Layout({ children }: { children: React.ReactNode }) {
                           }}
                           className={`text-xs lg:text-sm cursor-pointer p-2 ${
                             activeStoreId === store.id
-                              ? "bg-primary-500 text-white"
+                              ? "bg-primary-500 text-white shadow-md hover:shadow-md shadow-orange-500"
                               : ""
                           } hover:bg-orange-100 font-bold hover:shadow-lg hover:text-[#444748] hover:font-bold rounded-l-md transition-[background] ease-linear flex items-center gap-2`}
                         >

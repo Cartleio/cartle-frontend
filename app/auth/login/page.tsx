@@ -3,8 +3,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { FaCheck, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import styles from "../../../styles/Home.module.css";
-import Footer from "@/app/components/landingpage_components/Footer";
-import { signIn } from "next-auth/react";
+import { Footer } from "@/app/components";
 import { FcGoogle } from "react-icons/fc";
 import { useRouter } from "next/navigation";
 import LoadingSpinner from "@/app/components/LoadingSpinner";
@@ -12,7 +11,7 @@ import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { login } from "@/app/redux/feature/auth-slice";
 import "react-toastify/dist/ReactToastify.css";
-import { activeStore, clearStore } from "@/app/redux/feature/storeSlice";
+import { clearStore } from "@/app/redux/feature/storeSlice";
 import "react-toastify/dist/ReactToastify.css";
 import { toast, ToastContainer } from "react-toastify";
 
@@ -215,13 +214,9 @@ const Login = () => {
                 <div className="h-[0.9px] flex-1 bg-slate-400"></div>
               </div>
 
-              <div
-                className="bg-[#E7E7E7]  p-2 lg:p-3 text-sm lg:text-xl w-full  rounded-md flex items-center justify-center gap-2 font-semibold cursor-pointer"
-                onClick={() => signIn("google")}
-              >
+              <div className="bg-[#E7E7E7]  p-2 lg:p-3 text-sm lg:text-xl w-full  rounded-md flex items-center justify-center gap-2 font-semibold cursor-pointer">
                 <FcGoogle className="text-xl" />
                 <a href="https://cartle-test-1.onrender.com/merchants/google">
-                  {" "}
                   <span>Continue with Google</span>
                 </a>
               </div>
@@ -229,7 +224,6 @@ const Login = () => {
               <p className="mt-3 text-sm lg:text-base">
                 Don&apos;t have an account yet?
                 <Link className="text-primary-500" href={"../auth/signup"}>
-                  {" "}
                   Get started for free with Cartle
                 </Link>
               </p>

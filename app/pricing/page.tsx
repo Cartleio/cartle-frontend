@@ -1,10 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Footer from "../components/landingpage_components/Footer";
 import PageLoading from "../merchant/MerchantLoader";
-import Header from "../components/landingpage_components/Header";
-import AdSupport from "../components/landingpage_components/AdSupport";
-import PricingTable from "../components/landingpage_components/PricingTable";
+import { Footer, AdSupport, PricingTable, Header } from "@/app/components";
 
 function Pricing() {
   const [loading, setLoading] = useState(true);
@@ -13,9 +10,9 @@ function Pricing() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 1000); 
+    }, 1000);
 
-    return () => clearTimeout(timer); 
+    return () => clearTimeout(timer);
   }, []);
 
   return (
@@ -26,7 +23,10 @@ function Pricing() {
         </div>
       ) : (
         <div className="bg-[#FFFFFF]">
-          <Header mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />
+          <Header
+            mobileMenuOpen={mobileMenuOpen}
+            setMobileMenuOpen={setMobileMenuOpen}
+          />
           <div className="pt-10">
             <PricingTable />
           </div>

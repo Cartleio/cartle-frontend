@@ -514,14 +514,14 @@ export const SIDEBAR_TAGS_DATA: SideBarTags[] = [
   {
     icon: <GoPeople />,
     label: "Visitors",
-    price: "$5,000",
+    price: "5,000",
     quote: "(+19%)",
     bgColor: "#E7E7E7",
   },
   {
     icon: <PiHandbagSimpleLight />,
     label: "Orders",
-    price: "$4,000",
+    price: "4,000",
     quote: "(+19%)",
     bgColor: "#FFF1E6",
   },

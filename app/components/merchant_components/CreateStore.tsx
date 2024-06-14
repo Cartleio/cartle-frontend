@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import LoadingSpinner from "../LoadingSpinner";
 import { IoClose } from "react-icons/io5";
 import {
-  IsCreateStoreActive,
+  closeStoreCreationOverlay,
   creationFailure,
 } from "@/app/redux/feature/storeCreationSlice";
 import { useSelector, useDispatch } from "react-redux";
@@ -46,7 +46,7 @@ const CreateStore = () => {
 
       if (response.status === 201 || response.status === 200) {
         setLoading(false);
-        dispatch(IsCreateStoreActive());
+        dispatch(closeStoreCreationOverlay());
         toast.success("Store created successfully");
         const store = response.data.store;
         dispatch(addStore(store));
@@ -72,13 +72,13 @@ const CreateStore = () => {
       <ToastContainer />
       <section className="h-full w-full flex items-center justify-center">
         <div
-          className={`p-7 bg-white shadow-none sm:shadow-2xl rounded-3xl mx-auto w-[70%]  md:w-[60%] lg:w-[40%] xl:w-[30%]   transition-transform duration-700 ease-in-out  flex flex-col gap-6`}
+          className={`p-7 bg-white shadow-none sm:shadow-2xl rounded-3xl mx-auto w-[90%]  md:w-[70%] lg:w-[40%] xl:w-[40%]   transition-transform duration-700 ease-in-out  flex flex-col gap-6`}
         >
           <form className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
               <div className="flex items-center justify-between">
                 <label htmlFor="name">Enter store name</label>
-                <div onClick={() => dispatch(IsCreateStoreActive())}>
+                <div onClick={() => dispatch(closeStoreCreationOverlay())}>
                   <IoClose fontSize={24} className="cursor-pointer" />
                 </div>
               </div>

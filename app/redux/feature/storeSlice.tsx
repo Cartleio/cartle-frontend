@@ -33,7 +33,7 @@ export const getStores = createAsyncThunk(
       return resp.data.stores;
     } catch (error) {
       console.log(error);
-      // window.location.href = "/merchant/products";
+      window.location.href = "/auth/login";
       return thunkAPI.rejectWithValue("something went wrong");
     }
   }

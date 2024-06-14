@@ -1,11 +1,9 @@
 "use client";
-import React, { useEffect, useState, ChangeEvent, FormEvent } from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
 import Header from "@/app/components/merchant_components/Header";
 import Layout from "@/app/components/merchant_components/Layout";
 import { AppDispatch } from "@/app/redux/store";
 import { useSelector, useDispatch } from "react-redux";
-import { toast } from "react-toastify";
 import SettingsComponent from "@/app/components/settings_components/SettingsComponent";
 import { getStoreDetails } from "@/app/redux/feature/settingsSlice";
 import MerchantLoader from "@/app/merchant/MerchantLoader";

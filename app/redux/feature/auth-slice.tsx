@@ -9,6 +9,7 @@ const getUserFromLocalStorage = () => {
   }
   return null;
 };
+
 type User = {
   user: User | null;
   loading: boolean;
