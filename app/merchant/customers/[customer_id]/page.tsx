@@ -4,7 +4,7 @@ import Layout from "@/app/components/merchant_components/Layout";
 import { CUSTOMERS } from "@/app/components/utils/data";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import Newbar from "../../dashboard/Newbar";
+import Newbar from "../../../components/merchant_components/Dasboard/Newbar";
 
 type Params = {
   params: {
@@ -205,9 +205,9 @@ const Customer = ({ params: { customer_id } }: Params) => {
               </div>
             </section>
           </form>
-          <div className="w-[60%]">
+          {/* <div className="w-[60%]">
             <Newbar />
-          </div>
+          </div> */}
           <div className="">
             {customerHistory.map((C, index) => (
               <div

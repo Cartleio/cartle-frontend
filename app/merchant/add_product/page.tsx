@@ -41,11 +41,12 @@ type ProductData = {
   vendor: string;
   collections: string[];
   tags: string[];
-  productImages: string[];
+  productImages: File[];
   originalPrice: Number | null;
   quantity: Number | null | any;
   discountedPrice: Number | null;
   variant: { [key: string]: string[] };
+  [key: string]: any;
 };
 
 function AddProduct(): JSX.Element {
@@ -219,10 +220,23 @@ function AddProduct(): JSX.Element {
     try {
       const token = user.token;
       setLoading(true);
-      console.log("product data", productData);
+      const formData = new FormData();
+
+      Object.keys(productData).forEach((key) => {
+        if (key === "productImages") {
+          productData.productImages.forEach((file) => {
+            formData.append("productImages", file);
+          });
+        } else if (key === "variant") {
+          formData.append(key, JSON.stringify(productData[key]));
+        } else {
+          formData.append(key, productData[key]);
+        }
+      });
+
       const response = await axios.post(
         `https://cartle-test-1.onrender.com/stores/${activeStoreId}/products/`,
-        productData,
+        formData,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -230,6 +244,7 @@ function AddProduct(): JSX.Element {
           },
         }
       );
+
       if (response?.status === 201) {
         setLoading(false);
         toast.success("Product Created Successfully");

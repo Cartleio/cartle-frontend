@@ -27,11 +27,11 @@ function NewPie() {
     ],
   };
   return (
-    <div className="w-full  border-5 border-red-600">
-      <div className="border border-[#979DA0] rounded-md shadow-sm w-full">
+    <div className="w-full ">
+      <div className="border  rounded-md shadow-sm w-full">
         <div className="flex flex-col gap-4 p-4 w-full">
           <strong>Product Status</strong>
-          <div className="flex flex-col gap-4 items-center justify-center h-full w-full border-5 border-red-600">
+          <div className="flex flex-col gap-4 items-center justify-center h-full w-full ">
             <ApexCharts
               type={"donut"}
               width={"100%"}

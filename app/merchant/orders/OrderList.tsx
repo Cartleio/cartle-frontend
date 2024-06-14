@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import OrdersTable from "../dashboard/OrdersTable";
+import OrdersTable from "../../components/merchant_components/Dasboard/OrdersTable";
 
 const orders = [
   {
@@ -41,7 +41,7 @@ const orders = [
       },
     ],
   },
-  
+
   {
     id: 11,
     text: "2022-05-17T03:24:00",
@@ -108,7 +108,7 @@ const OrderList = () => {
         OrderType="pending orders"
         lastUpadted="Updated 20 minutes ago"
       />
-      
+
       <OrdersTable
         orders={paidOrders}
         OrderType="paid orders"

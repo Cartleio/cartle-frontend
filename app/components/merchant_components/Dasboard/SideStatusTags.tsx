@@ -7,7 +7,7 @@ function SideStatusTags() {
     <div className=" grid grid-cols-2 justify-items-center md:flex md:flex-col gap-3 md:gap-4">
       {SIDEBAR_TAGS_DATA.map((item, index) => (
         <div
-          className="flex gap-1 md:4 border border-[#979DA0] items-center p-3 lg:p-4 rounded-2xl shadow-sm"
+          className="flex gap-1 md:4 border  items-center p-3 lg:p-4 rounded-2xl shadow-sm"
           key={index}
         >
           <div

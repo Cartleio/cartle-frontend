@@ -3,7 +3,7 @@ import React from "react";
 import { Update, Summary, Theme } from "@/app/components/";
 import Header from "@/app/components/merchant_components/Header";
 import Theme1 from "@/public/Theme1.png";
-import Theme2 from "@/public/theme2.png";
+import Theme2 from "@/public/Theme2.png";
 import { useSelector } from "react-redux";
 
 type SummaryData = {
