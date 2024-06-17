@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import SettingsComponent from "@/app/components/settings_components/SettingsComponent";
 import { getStoreDetails } from "@/app/redux/feature/settingsSlice";
 import MerchantLoader from "@/app/merchant/MerchantLoader";
+import SalesContainer from "@/app/components/sales_components/SalesContainer";
 type HeaderData = {
   title: string;
   text: string;
@@ -30,8 +31,8 @@ const Sales: React.FC = () => {
   return (
     <Layout>
       <div className="w-full">
-        <Header {...headerData} />
-        {isLoading ? <MerchantLoader /> : <SettingsComponent />}
+        
+        {isLoading ? <MerchantLoader /> : <SalesContainer />}
       </div>
     </Layout>
   );
