@@ -8,6 +8,7 @@ import {
   NewPie,
 } from "@/app/components";
 import TransactionOverview from "./TransactionOverview";
+import SidebarTags from "./SidebarTags";
 import Trasnsaction from "./Trasnsaction";
 import Header from "@/app/components/merchant_components/Header";
 
@@ -124,7 +125,7 @@ const SalesContainer = () => {
         </div>
 
         <div className="hidden xl:flex flex-col gap-5 w-full xl:w-fit">
-          <SideStatusTags />
+          <SidebarTags />
           
         </div>
       </div>

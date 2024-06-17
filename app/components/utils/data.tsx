@@ -533,6 +533,30 @@ export const SIDEBAR_TAGS_DATA: SideBarTags[] = [
   },
 ];
 
+export const SIDEBAR_TAGS_DATA2: SideBarTags[] = [
+  {
+    icon: <TbMoneybag />,
+    label: "Pending Transactions",
+    price: "0",
+    quote: "(+19%)",
+    bgColor: "#FFF1E6",
+  },
+  {
+    icon: <GoPeople />,
+    label: "Available Balance",
+    price: "0",
+    quote: "(+19%)",
+    bgColor: "#E7E7E7",
+  },
+  {
+    icon: <PiHandbagSimpleLight />,
+    label: "Total Balance",
+    price: "0",
+    quote: "(+19%)",
+    bgColor: "#FFF1E6",
+  },
+];
+
 export function getOrderStatus(status: string) {
   switch (status) {
     case "PENDING":
