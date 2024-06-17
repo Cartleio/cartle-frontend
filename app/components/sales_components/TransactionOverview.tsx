@@ -50,7 +50,7 @@ const TransactionOverview: React.FC = () => {
         shade: "light",
         type: "vertical",
         shadeIntensity: 0.5,
-        gradientToColors: ["#ff944d"], // to color
+        gradientToColors: ["#FF7600"],
         inverseColors: true,
         opacityFrom: 0.7,
         opacityTo: 0.3,
