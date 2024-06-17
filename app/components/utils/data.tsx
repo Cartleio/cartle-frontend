@@ -431,6 +431,12 @@ export const NAVIGATION_LINK: Navigation[] = [
     label: "Dashboard",
   },
   {
+    path: "/merchant/sales",
+    subPath: [""],
+    icon: <BsGraphUpArrow />,
+    label: "Sales",
+  },
+  {
     path: "/merchant/products",
     subPath: [
       "/merchant/new_product",

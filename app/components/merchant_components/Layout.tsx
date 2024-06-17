@@ -36,6 +36,7 @@ import LoadingSpinner from "../LoadingSpinner";
 import { closeSubModal } from "@/app/redux/feature/subscriptionSlice";
 import { getPlanName } from "../utils/data";
 import Overlay from "@/app/merchant/marketing/Overlay";
+import Footer from "../landingpage_components/Footer";
 import SettingsComponent from "../settings_components/SettingsComponent";
 
 function Layout({ children }: { children: React.ReactNode }) {
@@ -136,6 +137,7 @@ function Layout({ children }: { children: React.ReactNode }) {
       <div
         className={`flex flex-col font-inter h-screen max-w-[1440px] mx-auto md:flex-row`}
       >
+        
         {/* SIDEBAR */}
         <nav
           className={`fixed ${
@@ -322,6 +324,7 @@ function Layout({ children }: { children: React.ReactNode }) {
           </div>
         </div>
       )}
+      
     </>
   );
 }
