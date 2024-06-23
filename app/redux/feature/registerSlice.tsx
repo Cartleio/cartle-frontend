@@ -4,6 +4,7 @@ type InitialState = {
   email: string;
   password: string;
   firstName: string;
+  lastName:string;
   storeName: string;
   storeAddress: string;
   phoneNumber: number | string;
@@ -31,6 +32,7 @@ const getRegistrationStateFromLocalStorage = () => {
 const initialState: InitialState = getRegistrationStateFromLocalStorage() || {
   email: "",
   password: "",
+  lastName:"",
   firstName: "",
   storeName: "",
   storeAddress: "",

@@ -40,7 +40,25 @@ export default function FirstSignUp() {
             placeholder="John"
             value={regData.firstName}
             onChange={handleFormUpdate}
-            className="rounded-[10px] p-2 bg-[#EFF0F1] w-full focus:outline-none focus:border-none my-1"
+            required
+            className="rounded-[10px] required p-2 bg-[#EFF0F1] w-full focus:outline-none focus:border-none my-1"
+          />
+        </div>
+        <div className="md:col-start-1 md:col-end-2">
+          <div>
+            <label htmlFor="lastname" className="font-semibold">
+              First Name
+            </label>
+          </div>
+          <input
+            type="text"
+            name="lastName"
+            id="lastName"
+            placeholder="Nzubechi"
+            value={regData.lastName}
+            onChange={handleFormUpdate}
+            required
+            className="rounded-[10px] required p-2 bg-[#EFF0F1] w-full focus:outline-none focus:border-none my-1"
           />
         </div>
 
@@ -89,8 +107,9 @@ export default function FirstSignUp() {
             name="phoneNumber"
             value={regData.phoneNumber}
             onChange={handleFormUpdate}
+            required
             id="phone"
-            className="rounded-[10px] p-2 bg-[#EFF0F1] w-full focus:outline-none focus:border-none my-1"
+            className="rounded-[10px] required p-2 bg-[#EFF0F1] w-full focus:outline-none focus:border-none my-1"
           />
         </div>
       </div>
