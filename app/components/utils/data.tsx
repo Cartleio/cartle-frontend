@@ -555,6 +555,14 @@ export const SIDEBAR_TAGS_DATA2: SideBarTags[] = [
     quote: "(+19%)",
     bgColor: "#FFF1E6",
   },
+  {
+    icon: <TbMoneybag />,
+    label: "Account- Wema Bank",
+    price: "No account no",
+    quote: "(+19%)",
+    bgColor: "#FFF1E6",
+  },
+
 ];
 
 export function getOrderStatus(status: string) {
